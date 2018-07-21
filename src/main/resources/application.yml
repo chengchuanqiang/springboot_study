@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: testing
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  http:
+      encoding:
+        charset: UTF-8
+        enabled: true
+        force: true
+
+project:
+  name: springboot-kafka

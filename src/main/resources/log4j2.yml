@@ -1,0 +1,65 @@
+Configuration:
+  status: info
+  monitorInterval: 30
+
+  properties:
+    property:
+      - name: log_filename
+        value: "logs/application.log"
+
+  Appenders:
+    Kafka:
+      name: "KAFKA"
+      topic: "kafka_log4j2_topic"
+      PatternLayout:
+        pattern: "%message"
+      Property:
+        - name: "bootstrap.servers"
+          value: "127.0.0.1:9092"
+        - name: "syncSend"
+          value: false
+        - name: "key.serializer"
+          value: "org.apache.kafka.common.serialization.ByteArraySerializer"
+        - name: "value.serializer"
+          value: "org.apache.kafka.common.serialization.ByteArraySerializer"
+
+    RollingFile:
+      - name: "serviceAppender"
+        fileName: "${log_filename}"
+        filePattern: "logs/application-%d{yyyy-MM-dd}_%i.log"
+        PatternLayout:
+          Pattern: "%d %p %c{1.} [%t] %C{1} %M %m %ex%n"
+        Policies:
+          TimeBasedTriggeringPolicy:
+            modulate: "true"
+            interval: "1"
+          SizeBasedTriggeringPolicy:
+            size: "20 MB"
+        DefaultRolloverStrategy:
+            max: 20
+
+    Console:
+      name: "consoleAppender"
+      target: "SYSTEM_OUT"
+      PatternLayout:
+        Pattern: "%d %p %c{1.} [%t] %C{1} %M %m %ex%n"
+
+  Loggers:
+    Logger:
+      - name: "service"
+        level: "warn"
+        additivity: "false"
+        AppenderRef:
+          - ref: "serviceAppender"
+          - ref: "consoleAppender"
+
+      - name: "kafka_logger"
+        level: "info"
+        AppenderRef:
+          ref: "KAFKA"
+
+    Root:
+      level: "info"
+      AppenderRef:
+        - ref: "serviceAppender"
+        - ref: "consoleAppender"
