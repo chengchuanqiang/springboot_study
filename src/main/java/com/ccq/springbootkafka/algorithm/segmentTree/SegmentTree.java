@@ -65,6 +65,7 @@ public class SegmentTree<E> {
 
     // 更新[index]实行merge操作
     public void update(int index, E updateVal) {
+        data[index] = updateVal;
         update(0, 0, data.length - 1, index, updateVal);
     }
 
