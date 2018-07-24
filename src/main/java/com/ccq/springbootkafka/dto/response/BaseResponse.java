@@ -1,52 +1,33 @@
 package com.ccq.springbootkafka.dto.response;
 
+import com.ccq.springbootkafka.dto.enums.ResponseInfoType;
+import lombok.Data;
+
 /********************************
- *** 基础返回对象
+ ***
  ***@Author chengchuanqiang
- ***@Date 2018/7/20 10:11
+ ***@Date 2018/7/24 15:22
  ***@Version 1.0.0
  ********************************/
-public class BaseResponse {
+@Data
+public class BaseResponse<T> {
 
-    private String msg = "";
+    private String msg;
     private Integer code;
-    private Object data;
+    private T data;
 
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
-
-    public BaseResponse(String msg, Integer code) {
-        this.msg = msg;
-        this.code = code;
-    }
-
-    public BaseResponse() {
-    }
-
-    public BaseResponse(String msg, Integer code, Object data) {
+    public BaseResponse(String msg, Integer code, T data) {
         this.msg = msg;
         this.code = code;
         this.data = data;
     }
 
-    public String getMsg() {
-        return msg;
+    public static<T> BaseResponse successInstance(T data) {
+        return new BaseResponse<>(ResponseInfoType.SUCCESS.getMsg(), ResponseInfoType.SUCCESS.getCode(), data);
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public static<T> BaseResponse failInstance(int code, String msg) {
+        return new BaseResponse<>(msg, code,null);
     }
 
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
 }

@@ -35,13 +35,13 @@ public class UserController {
             @ApiImplicitParam(name = "user", value = "用户详细实体类", required = true, paramType = "body", dataType = "User")
     )
     @PostMapping("user")
-    public BaseResponse addUser(@RequestBody User user) {
+    public BaseResponse<User> addUser(@RequestBody User user) {
         try {
             user = userService.addUser(user);
-            return new BaseResponse(ResponseInfoType.SUCCESS.getMsg(), ResponseInfoType.SUCCESS.getCode(), user);
+            return new BaseResponse<>(ResponseInfoType.SUCCESS.getMsg(), ResponseInfoType.SUCCESS.getCode(), user);
         } catch (Exception e) {
             log.info(e.getMessage());
-            return new BaseResponse(ResponseInfoType.ERROR1.getMsg(), ResponseInfoType.ERROR1.getCode(), null);
+            return new BaseResponse<>(ResponseInfoType.ERROR1.getMsg(), ResponseInfoType.ERROR1.getCode(), null);
         }
     }
 
@@ -51,13 +51,13 @@ public class UserController {
             @ApiImplicitParam(name = "user", value = "用户信息", dataType = "User", required = true, paramType = "body")
     })
     @PutMapping("user/{id}")
-    public BaseResponse updateUser(@PathVariable("id") Long id, @RequestBody User user) {
+    public BaseResponse<Boolean> updateUser(@PathVariable("id") Long id, @RequestBody User user) {
         try {
             boolean isOk = userService.updateUser(id, user);
-            return new BaseResponse(ResponseInfoType.SUCCESS.getMsg(), ResponseInfoType.SUCCESS.getCode(), isOk);
+            return new BaseResponse<>(ResponseInfoType.SUCCESS.getMsg(), ResponseInfoType.SUCCESS.getCode(), isOk);
         } catch (Exception e) {
             log.info(e.getMessage());
-            return new BaseResponse(ResponseInfoType.ERROR1.getMsg(), ResponseInfoType.ERROR1.getCode(), null);
+            return new BaseResponse<>(ResponseInfoType.ERROR1.getMsg(), ResponseInfoType.ERROR1.getCode(), null);
         }
     }
 
@@ -66,48 +66,49 @@ public class UserController {
             @ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", required = true, paramType = "path", example = "1")
     })
     @DeleteMapping("user/{id}")
-    public BaseResponse deleteUser(@PathVariable("id") Long id) {
+    public BaseResponse<Boolean> deleteUser(@PathVariable("id") Long id) {
         try {
             boolean isDelete = userService.deleteUser(id);
-            return new BaseResponse(ResponseInfoType.SUCCESS.getMsg(), ResponseInfoType.SUCCESS.getCode(), isDelete);
+            return new BaseResponse<>(ResponseInfoType.SUCCESS.getMsg(), ResponseInfoType.SUCCESS.getCode(), isDelete);
         } catch (Exception e) {
             log.info(e.getMessage());
-            return new BaseResponse(ResponseInfoType.ERROR1.getMsg(), ResponseInfoType.ERROR1.getCode(), false);
+            return new BaseResponse<>(ResponseInfoType.ERROR1.getMsg(), ResponseInfoType.ERROR1.getCode(), false);
         }
     }
 
     @ApiOperation(value = "获取用户列表", notes = "获取用户列表")
     @GetMapping("users")
-    public BaseResponse getUserList() {
+    public BaseResponse<List<User>> getUserList() {
         try {
             List<User> userList = userService.getUserList();
-            return new BaseResponse(ResponseInfoType.SUCCESS.getMsg(), ResponseInfoType.SUCCESS.getCode(), userList);
+            return new BaseResponse<>(ResponseInfoType.SUCCESS.getMsg(), ResponseInfoType.SUCCESS.getCode(), userList);
         } catch (Exception e) {
             log.info(e.getMessage());
-            return new BaseResponse(ResponseInfoType.ERROR1.getMsg(), ResponseInfoType.ERROR1.getCode(), null);
+            return new BaseResponse<>(ResponseInfoType.ERROR1.getMsg(), ResponseInfoType.ERROR1.getCode(), null);
         }
     }
 
     @ApiOperation(value = "获取用户详细信息", notes = "根据用户id获取用户详细信息")
     @ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", required = true, paramType = "path", example = "1")
     @GetMapping("user/{id}")
-    public BaseResponse getUserById(@PathVariable("id") Long id) {
+    public BaseResponse<User> getUserById(@PathVariable("id") Long id) {
         try {
             User user = userService.getUserById(id);
-            return new BaseResponse(ResponseInfoType.SUCCESS.getMsg(), ResponseInfoType.SUCCESS.getCode(), user);
+            return new BaseResponse<>(ResponseInfoType.SUCCESS.getMsg(), ResponseInfoType.SUCCESS.getCode(), user);
         } catch (Exception e) {
             log.info(e.getMessage());
-            return new BaseResponse(ResponseInfoType.ERROR1.getMsg(), ResponseInfoType.ERROR1.getCode(), null);
+            return new BaseResponse<>(ResponseInfoType.ERROR1.getMsg(), ResponseInfoType.ERROR1.getCode(), null);
         }
     }
 
     /**
      * 使用注解隐藏这个Controller
+     *
      * @return success
      */
     @ApiIgnore
     @GetMapping("ignore")
-    public String ignoreTest(){
+    public String ignoreTest() {
         return "success";
     }
 
