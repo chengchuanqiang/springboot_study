@@ -1,4 +1,6 @@
-package com.ccq.springbootkafka.algorithm.unionFind;
+package com.ccq.springbootkafka.algorithm.unionFind.impl;
+
+import com.ccq.springbootkafka.algorithm.unionFind.UnionFind;
 
 /********************************
  *** 使用快速查询实现并查集 查询O(1) 关联O(N)
