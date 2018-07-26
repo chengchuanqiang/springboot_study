@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 /********************************
- *** 线段树模板
+ *** 线段树模板1
  ***@Author chengchuanqiang
  ***@Date 2018/7/24 9:40
  ***@Version 1.0.0
