@@ -82,6 +82,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
+        //输入挂
         BufferedReader f = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(f.readLine());
         int n = Integer.parseInt(st.nextToken());
