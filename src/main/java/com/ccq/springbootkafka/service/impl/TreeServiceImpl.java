@@ -1,6 +1,5 @@
 package com.ccq.springbootkafka.service.impl;
 
-import com.ccq.springbootkafka.domain.Tree;
 import com.ccq.springbootkafka.dto.response.model.Folder;
 import com.ccq.springbootkafka.mapper.TreeMapper;
 import com.ccq.springbootkafka.service.TreeService;
@@ -28,26 +27,26 @@ public class TreeServiceImpl implements TreeService {
     public List<Folder> getAll(String filterStr) {
         List<Folder> folderList = treeMapper.getAll(filterStr);
 
+        // 先按照parent_id进行倒序，再按照weight进行升序
         folderList = folderList.stream().sorted((folder1, folder2) -> folder1.getParentId() < folder2.getParentId() ? 1 :
                 (folder1.getParentId() > folder2.getParentId() ? -1 : folder1.getWeight() - folder2.getWeight())).collect(Collectors.toList());
 
         Map<Long, Folder> folderMap = folderList.stream().collect(Collectors.toMap(Folder::getId, folder -> folder));
 
         Folder folder = null;
-        for(int i = 1, j =0; i <= folderList.size(); i++){
-            if(i < folderList.size()){
-                if(!folderList.get(j).getParentId().equals(folderList.get(i).getParentId())){
+        for (int i = 1, j = 0; i <= folderList.size(); i++) {
+            if (i < folderList.size()) {
+                if (!folderList.get(j).getParentId().equals(folderList.get(i).getParentId())) {
                     folder = folderMap.get(folderList.get(j).getParentId());
-                    if(folder != null){
-                        folder.setSubFolders(folderList.subList(j,i));
+                    if (folder != null) {
+                        folder.setSubFolders(folderList.subList(j, i));
                     }
                     j = i;
                 }
-            }else{
-                return folderList.subList(j,i);
+            } else {
+                return folderList.subList(j, i);
             }
         }
-
         return new ArrayList<>();
     }
 }
