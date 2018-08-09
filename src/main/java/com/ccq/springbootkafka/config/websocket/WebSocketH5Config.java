@@ -7,7 +7,7 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 /********************************
- *** 实现接口来配置websocket请求的路径和拦截器
+ *** 实现接口来配置webSocket请求的路径和拦截器
  ***@Author chengchuanqiang
  ***@Date 2018/7/31 14:07
  ***@Version 1.0.0
@@ -15,9 +15,12 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @Configuration
 @EnableWebSocket
 public class WebSocketH5Config implements WebSocketConfigurer {
+
+    private static final String WEB_SOCKET_URL = "/connect/webSocket";
+
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-       // handler是websocket的核心，配置入口
-        registry.addHandler(new MyHandler(), "/myHandler/{ID}").setAllowedOrigins("*").addInterceptors(new WebSocketInterceptor());
+        // handler是webSocket的核心，配置入口
+        registry.addHandler(new MyHandler(), WEB_SOCKET_URL).addInterceptors(new WebSocketInterceptor()).setAllowedOrigins("*");
     }
 }

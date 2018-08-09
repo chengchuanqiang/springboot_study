@@ -49,7 +49,7 @@
             userID = $("#userId").val();
 
             //建立webSocket连接
-            websocket = new WebSocket("ws://127.0.0.1:8080/myHandler/ID=" + userID);
+            websocket = new WebSocket("ws://127.0.0.1:8080/connect/webSocket?userId=" + userID);
 
             //打开webSokcet连接时，回调该函数
             websocket.onopen = function () {

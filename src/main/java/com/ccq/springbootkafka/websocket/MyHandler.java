@@ -1,6 +1,7 @@
 package com.ccq.springbootkafka.websocket;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.socket.*;
 
 import java.io.IOException;
@@ -13,32 +14,35 @@ import java.util.concurrent.ConcurrentHashMap;
  ***@Date 2018/7/31 14:15
  ***@Version 1.0.0
  ********************************/
+@Slf4j
 public class MyHandler implements WebSocketHandler {
 
     //在线用户列表
     private static final Map<String, WebSocketSession> users = new ConcurrentHashMap<>();
 
+    private static final String WEB_SOCKET_USER_ID = "WEB_SOCKET_USER_ID";
+
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        System.out.println("成功建立连接");
-        String ID = session.getUri().toString().split("ID=")[1];
-        System.out.println(ID);
-        if (ID != null) {
-            users.put(ID, session);
-            session.sendMessage(new TextMessage("用户 " + ID + "成功建立socket连接"));
-            System.out.println(ID);
-            System.out.println(session);
+        String userId = getClientId(session);
+        log.info("{}, 成功建立连接" + userId);
+        if (userId != null) {
+            users.put(userId, session);
+            session.sendMessage(new TextMessage("用户 " + userId + "成功建立socket连接"));
+            log.info("userId : {}, session : {}", userId, session);
         }
-        System.out.println("当前在线人数：" + users.size());
+        log.info("当前在线人数 : {}", users.size());
     }
 
     @Override
-    public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> webSocketMessage) throws Exception {
+    public void handleMessage(WebSocketSession session, WebSocketMessage<?> webSocketMessage) {
         try {
             JSONObject jsonobject = JSONObject.parseObject((String) webSocketMessage.getPayload());
-            System.out.println(jsonobject.get("id"));
-            System.out.println(jsonobject.get("message") + ":来自" + (String) webSocketSession.getAttributes().get("WEBSOCKET_USERID") + "的消息");
-            sendMessageToUser(jsonobject.get("id") + "", new TextMessage("服务器收到了，" + jsonobject.get("message")));
+            String clientId = jsonobject.getString("id");
+            String message = jsonobject.getString("message");
+            String userId = getClientId(session);
+            log.info("{} 发送给 {} 消息 : {}", userId, clientId, message);
+            sendMessageToUser(clientId, new TextMessage("服务器转发消息 : " + message));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,14 +53,16 @@ public class MyHandler implements WebSocketHandler {
         if (session.isOpen()) {
             session.close();
         }
-        System.out.println("连接出错");
-        users.remove(getClientId(session));
+        String userId = getClientId(session);
+        log.info("{}, 连接错误", userId);
+        users.remove(userId);
     }
 
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        System.out.println("连接已关闭：" + status);
-        users.remove(getClientId(session));
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
+        String userId = getClientId(session);
+        log.info("{}, 连接已关闭, status : ", userId, status);
+        users.remove(userId);
     }
 
     @Override
@@ -70,10 +76,9 @@ public class MyHandler implements WebSocketHandler {
      * @param session
      * @return
      */
-    private Integer getClientId(WebSocketSession session) {
+    private String getClientId(WebSocketSession session) {
         try {
-            Integer clientId = (Integer) session.getAttributes().get("WEBSOCKET_USERID");
-            return clientId;
+            return (String) session.getAttributes().get(WEB_SOCKET_USER_ID);
         } catch (Exception e) {
             return null;
         }
@@ -87,10 +92,13 @@ public class MyHandler implements WebSocketHandler {
      * @return
      */
     public boolean sendMessageToUser(String clientId, TextMessage message) {
-        if (users.get(clientId) == null) return false;
+        if (users.get(clientId) == null) {
+            return false;
+        }
         WebSocketSession session = users.get(clientId);
-        System.out.println("sendMessage:" + session);
-        if (!session.isOpen()) return false;
+        if (!session.isOpen()) {
+            return false;
+        }
         try {
             session.sendMessage(message);
         } catch (IOException e) {

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /********************************
- ***
+ *** 访问webSocket页面
  ***@Author chengchuanqiang
  ***@Date 2018/7/31 14:27
  ***@Version 1.0.0
