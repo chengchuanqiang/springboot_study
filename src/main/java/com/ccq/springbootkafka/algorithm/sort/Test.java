@@ -1,6 +1,5 @@
 package com.ccq.springbootkafka.algorithm.sort;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /********************************
@@ -67,6 +66,10 @@ public class Test {
         arr1 = RandomUtils.getRepeatNum(n, m);
         arr2 = Arrays.copyOf(arr1, n);
         System.out.println("RepeatNum : ");
+        s = System.currentTimeMillis();
+        Arrays.sort(arr1);
+        e = System.currentTimeMillis();
+        System.out.println((e - s) / 1000.0 + "s");
         s = System.currentTimeMillis();
         QuickSort.sort1(arr1);
         e = System.currentTimeMillis();
