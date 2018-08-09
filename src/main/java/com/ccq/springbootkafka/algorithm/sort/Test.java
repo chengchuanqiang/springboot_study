@@ -1,7 +1,7 @@
 package com.ccq.springbootkafka.algorithm.sort;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Random;
 
 /********************************
  ***
@@ -13,15 +13,19 @@ public class Test {
 
     public static void main(String[] args) {
 
-        int n = 1000000;
+        int n = 100000;
         int m = 10;
 
         int[] arr1 = RandomUtils.getRandomNum(n);
         int[] arr2 = Arrays.copyOf(arr1, n);
         System.out.println("RandomNum : ");
         Long s = System.currentTimeMillis();
-        QuickSort.sort1(arr1);
+        Arrays.sort(arr1);
         Long e = System.currentTimeMillis();
+        System.out.println((e - s) / 1000.0 + "s");
+        s = System.currentTimeMillis();
+        QuickSort.sort1(arr1);
+        e = System.currentTimeMillis();
         System.out.println((e - s) / 1000.0 + "s");
         s = System.currentTimeMillis();
         QuickSort.sort2(arr2);
@@ -31,6 +35,10 @@ public class Test {
         arr1 = RandomUtils.getPartSortNum(n, m);
         arr2 = Arrays.copyOf(arr1, n);
         System.out.println("PartSortNum : ");
+        s = System.currentTimeMillis();
+        Arrays.sort(arr1);
+        e = System.currentTimeMillis();
+        System.out.println((e - s) / 1000.0 + "s");
         s = System.currentTimeMillis();
         QuickSort.sort1(arr1);
         e = System.currentTimeMillis();
@@ -43,6 +51,10 @@ public class Test {
         arr1 = RandomUtils.getSortNum(n);
         arr2 = Arrays.copyOf(arr1, n);
         System.out.println("SortNum : ");
+        s = System.currentTimeMillis();
+        Arrays.sort(arr1);
+        e = System.currentTimeMillis();
+        System.out.println((e - s) / 1000.0 + "s");
         s = System.currentTimeMillis();
         QuickSort.sort1(arr1);
         e = System.currentTimeMillis();
