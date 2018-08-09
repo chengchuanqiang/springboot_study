@@ -13,21 +13,56 @@ public class Test {
 
     public static void main(String[] args) {
 
-        int N = 10;
+        int n = 1000000;
+        int m = 10;
 
-        Random random = new Random();
-        int[] arr1 = new int[N];
-        int[] arr2 = new int[N];
-        for (int i = 0; i < N; i++) {
-            arr1[i] = random.nextInt(N);
-            arr2[i] = arr1[i];
-        }
-
+        int[] arr1 = RandomUtils.getRandomNum(n);
+        int[] arr2 = Arrays.copyOf(arr1, n);
+        System.out.println("RandomNum : ");
+        Long s = System.currentTimeMillis();
         QuickSort.sort1(arr1);
-        print(arr1);
+        Long e = System.currentTimeMillis();
+        System.out.println((e - s) / 1000.0 + "s");
+        s = System.currentTimeMillis();
+        QuickSort.sort2(arr2);
+        e = System.currentTimeMillis();
+        System.out.println((e - s) / 1000.0 + "s");
 
-        QuickSort.sort2(arr1);
-        print(arr1);
+        arr1 = RandomUtils.getPartSortNum(n, m);
+        arr2 = Arrays.copyOf(arr1, n);
+        System.out.println("PartSortNum : ");
+        s = System.currentTimeMillis();
+        QuickSort.sort1(arr1);
+        e = System.currentTimeMillis();
+        System.out.println((e - s) / 1000.0 + "s");
+        s = System.currentTimeMillis();
+        QuickSort.sort2(arr2);
+        e = System.currentTimeMillis();
+        System.out.println((e - s) / 1000.0 + "s");
+
+        arr1 = RandomUtils.getSortNum(n);
+        arr2 = Arrays.copyOf(arr1, n);
+        System.out.println("SortNum : ");
+        s = System.currentTimeMillis();
+        QuickSort.sort1(arr1);
+        e = System.currentTimeMillis();
+        System.out.println((e - s) / 1000.0 + "s");
+        s = System.currentTimeMillis();
+        QuickSort.sort2(arr2);
+        e = System.currentTimeMillis();
+        System.out.println((e - s) / 1000.0 + "s");
+
+        arr1 = RandomUtils.getRepeatNum(n, m);
+        arr2 = Arrays.copyOf(arr1, n);
+        System.out.println("RepeatNum : ");
+        s = System.currentTimeMillis();
+        QuickSort.sort1(arr1);
+        e = System.currentTimeMillis();
+        System.out.println((e - s) / 1000.0 + "s");
+        s = System.currentTimeMillis();
+        QuickSort.sort2(arr2);
+        e = System.currentTimeMillis();
+        System.out.println((e - s) / 1000.0 + "s");
 
     }
 

@@ -16,11 +16,12 @@ public class QuickSort {
     }
 
     public static void sort1(int[] arr, int l, int r) {
-        if (l < r) {
-            int p = partition1(arr, l, r);
-            sort1(arr, l, p - 1);
-            sort1(arr, p + 1, r);
+        if (l >= r) {
+            return;
         }
+        int p = partition1(arr, l, r);
+        sort1(arr, l, p - 1);
+        sort1(arr, p + 1, r);
     }
 
     private static int partition1(int[] arr, int l, int r) {
@@ -42,11 +43,12 @@ public class QuickSort {
     }
 
     public static void sort2(int[] arr, int l, int r) {
-        if (l < r) {
-            int p = partition2(arr, l, r);
-            sort2(arr, l, p - 1);
-            sort2(arr, p + 1, r);
+        if (l >= r) {
+            return;
         }
+        int p = partition2(arr, l, r);
+        sort2(arr, l, p - 1);
+        sort2(arr, p + 1, r);
     }
 
     private static int partition2(int[] arr, int l, int r) {
@@ -68,7 +70,7 @@ public class QuickSort {
             swap(arr, i++, j--);
         }
         swap(arr, l, j);
-        System.out.println("jjj==" + j);
+        //System.out.println("jjj==" + j);
         return j;
     }
 
