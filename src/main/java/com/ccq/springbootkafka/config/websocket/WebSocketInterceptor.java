@@ -26,6 +26,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
 
         if (request instanceof ServletServerHttpRequest) {
             ServletServerHttpRequest serverHttpRequest = (ServletServerHttpRequest) request;
+            // todo 可获取session中信息
             HttpSession session = serverHttpRequest.getServletRequest().getSession();
             String userId = serverHttpRequest.getServletRequest().getParameter("userId");
             log.info("当前用户id:{}", userId);

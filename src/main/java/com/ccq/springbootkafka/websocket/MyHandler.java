@@ -45,7 +45,7 @@ public class MyHandler implements WebSocketHandler {
      * @param webSocketMessage
      */
     @Override
-    public void handleMessage(WebSocketSession session, WebSocketMessage<?> webSocketMessage) {
+    public void handleMessage(WebSocketSession session, WebSocketMessage<?> webSocketMessage) throws Exception{
         try {
             JSONObject jsonobject = JSONObject.parseObject((String) webSocketMessage.getPayload());
             String clientId = jsonobject.getString("id");
@@ -80,7 +80,7 @@ public class MyHandler implements WebSocketHandler {
      * @param status
      */
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         String userId = getClientId(session);
         log.info("{}, 连接已关闭, status : ", userId, status);
         users.remove(userId);
