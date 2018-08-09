@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /********************************
- ***
+ *** webSocket
  ***@Author chengchuanqiang
  ***@Date 2018/7/31 14:15
  ***@Version 1.0.0
@@ -22,6 +22,11 @@ public class MyHandler implements WebSocketHandler {
 
     private static final String WEB_SOCKET_USER_ID = "WEB_SOCKET_USER_ID";
 
+    /**
+     * 客户端连接回调
+     * @param session
+     * @throws Exception
+     */
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         String userId = getClientId(session);
@@ -34,6 +39,11 @@ public class MyHandler implements WebSocketHandler {
         log.info("当前在线人数 : {}", users.size());
     }
 
+    /**
+     * 客户端发消息回调
+     * @param session
+     * @param webSocketMessage
+     */
     @Override
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> webSocketMessage) {
         try {
@@ -48,6 +58,12 @@ public class MyHandler implements WebSocketHandler {
         }
     }
 
+    /**
+     * 客户端发生异常回调
+     * @param session
+     * @param throwable
+     * @throws Exception
+     */
     @Override
     public void handleTransportError(WebSocketSession session, Throwable throwable) throws Exception {
         if (session.isOpen()) {
@@ -58,6 +74,11 @@ public class MyHandler implements WebSocketHandler {
         users.remove(userId);
     }
 
+    /**
+     * 客户端关闭连接回调
+     * @param session
+     * @param status
+     */
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         String userId = getClientId(session);
