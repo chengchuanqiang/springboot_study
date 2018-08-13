@@ -67,6 +67,9 @@ public class MergeSort {
         // (n-2k + 1)*(lgk * 2) 其中k为list.size() 也就是初始堆的大小
         while (true) {
             deleteFromQueue = minHeap.poll();
+            if (deleteFromQueue == null) {
+                continue;
+            }
             arr[i++] = deleteFromQueue.val;
             currIndex = deleteFromQueue.arraysIndex;
             if (index[currIndex] < list.get(currIndex).size()) {
@@ -109,16 +112,17 @@ public class MergeSort {
         list.add(list4);
 
         int[] res = merge(list);
-
-        for (int i = 0; i < res.length; i++) {
-            System.out.print(res[i] + " ");
+        if (res != null) {
+            for (int re : res) {
+                System.out.print(re + " ");
+            }
+            System.out.println();
         }
-        System.out.println();
     }
 
     private static class Data {
-        private Integer val;
-        private Integer arraysIndex;
+        private Integer val;  //值
+        private Integer arraysIndex;//所在数组的索引
 
         public Data(Integer val, Integer arraysIndex) {
             this.val = val;
