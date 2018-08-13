@@ -1,6 +1,7 @@
 package com.ccq.springbootkafka.algorithm.sort;
 
-import java.lang.reflect.Array;
+import org.springframework.util.CollectionUtils;
+
 import java.util.*;
 
 /********************************
@@ -35,6 +36,10 @@ public class MergeSort {
     // 实现对K个有序数组的归并操作
     private static int[] merge(List<List<Integer>> list) {
 
+        if (CollectionUtils.isEmpty(list) || list.size() == 0) {
+            return null;
+        }
+
         // 小顶堆
         PriorityQueue<Data> minHeap = new PriorityQueue<>(Comparator.comparingInt(d -> d.val));
 
@@ -44,9 +49,11 @@ public class MergeSort {
         int n = 0;
         // 初始化堆最小堆操作
         for (int i = 0; i < list.size(); i++) {
-            n += list.get(i).size();
-            minHeap.add(new Data(list.get(i).get(0), i));
-            index[i] = 1;
+            if (!CollectionUtils.isEmpty(list.get(i)) && list.get(i).size() > 0) {
+                n += list.get(i).size();
+                minHeap.add(new Data(list.get(i).get(0), i));
+                index[i] = 1;
+            }
         }
         int[] arr = new int[n];
 
@@ -90,10 +97,12 @@ public class MergeSort {
         List<Integer> list1 = Arrays.asList(1, 4, 7, 10, 18, 19);
         List<Integer> list2 = Arrays.asList(2, 5, 8, 11);
         List<Integer> list3 = Arrays.asList(3, 6, 9, 12, 20, 29, 30);
+        List<Integer> list4 = new ArrayList<>();
 
         list.add(list1);
         list.add(list2);
         list.add(list3);
+        list.add(list4);
 
         int[] res = merge(list);
 
