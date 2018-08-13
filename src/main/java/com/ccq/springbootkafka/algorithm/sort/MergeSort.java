@@ -5,7 +5,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.*;
 
 /********************************
- ***
+ *** 实现K个有序数组的归并操作
  ***@Author chengchuanqiang
  ***@Date 2018/8/9 18:35
  ***@Version 1.0.0
@@ -34,6 +34,10 @@ public class MergeSort {
     }
 
     // 实现对K个有序数组的归并操作
+    // 1、使用小顶堆存储K个数组中最小的值
+    // 2、然后遍历小顶堆，每一次取出小顶堆最小的元素，加入到返回的数组中
+    // 3、将取出的元素所在数组的下一个元素加到队列中，如果该组的数据已经遍历完成，则找下一个数组，将当前数组遍历到的下一个值加入到小顶堆中
+    // 4、当所有的数组中的数据全部遍历完成之后，再将小顶堆中剩余的所有元素依次出队加入到返回的数组中即可
     private static int[] merge(List<List<Integer>> list) {
 
         if (CollectionUtils.isEmpty(list) || list.size() == 0) {
