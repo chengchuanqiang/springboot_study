@@ -17,8 +17,8 @@ import java.util.Collections;
 /********************************
  *** Redis 分布式锁实现
  ***@Author chengchuanqiang
- ***@Date 2018/7/9 9:35
- ***@Version 2.5.0
+ ***@Date 2018/9/17 9:35
+ ***@Version 1.0.0
  ********************************/
 @Component
 public class RedisLockPlus {
