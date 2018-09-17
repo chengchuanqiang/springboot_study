@@ -30,7 +30,7 @@ public class RedisLockTest {
     private static final long EXPIRE_TIME = 60 * 1000;
 
     @Autowired
-    private RedisLock redisLock;
+    private RedisLockPlus redisLock;
 
     @Test
     public void testLock1() throws InterruptedException {
