@@ -8,7 +8,7 @@ package com.ccq.springbootkafka.algorithm.unionFind;
  ********************************/
 public interface UnionFind {
     /**
-     * 查询x的根节点
+     * 查询x的集合
      * @param x 参数下标
      * @return 根节点下标
      */
