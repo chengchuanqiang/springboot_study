@@ -19,11 +19,42 @@ public class TestUnionFind {
     private static int[] judgeX;
     private static int[] judgeY;
 
+    public static void main(String[] args) {
+
+        TestUnionFind test = new TestUnionFind();
+
+        int i = 0;
+        int sum = 5;
+        while((i++) < sum){
+            System.out.println("==============第 [" + i + "] 次==============");
+            test.init();
+
+            UnionFind quickFind = new QuickFind(n);
+            test.test(quickFind, n, m);
+
+            UnionFind quickUnion = new QuickUnion(n);
+            test.test(quickUnion, n, m);
+
+            UnionFind weightQuickUnion = new WeightQuickUnion(n);
+            test.test(weightQuickUnion, n, m);
+
+            UnionFind heightQuickUnion = new HeightQuickUnion(n);
+            test.test(heightQuickUnion, n, m);
+
+            UnionFind weightQuickUnionPathCompression = new WeightQuickUnionPathCompression(n);
+            test.test(weightQuickUnionPathCompression, n, m);
+
+            UnionFind heightQuickUnionPathCompression = new HeightQuickUnionPathCompression(n);
+            test.test(heightQuickUnionPathCompression, n, m);
+
+            System.out.println();
+        }
+    }
 
     public void init(){
         System.out.println("数据准备开始...............");
-        n = 1000000;
-        m = 10000000;
+        n = 100000;
+        m = 100000;
         Random random = new Random();
         connectX = new int[n];
         connectY = new int[n];
@@ -55,36 +86,6 @@ public class TestUnionFind {
         name = name.substring(name.lastIndexOf(".") + 1);
         System.out.println(name + " : " + (endTime - startTime) / 1000000000.0 + " s");
 
-    }
-
-    public static void main(String[] args) {
-
-        TestUnionFind test = new TestUnionFind();
-
-//        UnionFind quickFind = new QuickFind(n);
-//        test.test(quickFind, n, m);
-//
-//        UnionFind quickUnion = new QuickUnion(n);
-//        test.test(quickUnion, n, m);
-        int i = 0;
-        int sum = 5;
-        while((i++) < sum){
-            System.out.println("==============第 [" + i + "] 次==============");
-            test.init();
-            UnionFind weightQuickUnion = new WeightQuickUnion(n);
-            test.test(weightQuickUnion, n, m);
-
-            UnionFind heightQuickUnion = new HeightQuickUnion(n);
-            test.test(heightQuickUnion, n, m);
-
-            UnionFind weightQuickUnionPathCompression = new WeightQuickUnionPathCompression(n);
-            test.test(weightQuickUnionPathCompression, n, m);
-
-            UnionFind heightQuickUnionPathCompression = new HeightQuickUnionPathCompression(n);
-            test.test(heightQuickUnionPathCompression, n, m);
-
-            System.out.println();
-        }
     }
 
 }
