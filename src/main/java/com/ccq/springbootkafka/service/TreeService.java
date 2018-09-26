@@ -1,5 +1,6 @@
 package com.ccq.springbootkafka.service;
 
+import com.ccq.springbootkafka.domain.Tree;
 import com.ccq.springbootkafka.dto.response.model.Folder;
 
 import java.util.List;
@@ -14,4 +15,10 @@ public interface TreeService {
 
 
     List<Folder> getAll(String filterStr);
+
+    List<Tree> getAllTree();
+
+    Tree getTreeById(Long id);
+
+    List<Tree> getByPid(Long pId);
 }

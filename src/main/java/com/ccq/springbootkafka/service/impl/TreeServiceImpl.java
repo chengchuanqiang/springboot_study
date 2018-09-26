@@ -1,5 +1,7 @@
 package com.ccq.springbootkafka.service.impl;
 
+import com.ccq.springbootkafka.domain.Tree;
+import com.ccq.springbootkafka.domain.TreeExample;
 import com.ccq.springbootkafka.dto.response.model.Folder;
 import com.ccq.springbootkafka.mapper.TreeMapper;
 import com.ccq.springbootkafka.service.TreeService;
@@ -49,4 +51,23 @@ public class TreeServiceImpl implements TreeService {
         }
         return new ArrayList<>();
     }
+
+    @Override
+    public List<Tree> getAllTree() {
+        return treeMapper.selectByExample(new TreeExample());
+    }
+
+    @Override
+    public Tree getTreeById(Long id) {
+        return treeMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<Tree> getByPid(Long pId) {
+        TreeExample example = new TreeExample();
+        example.createCriteria().andParentIdEqualTo(pId);
+        example.setOrderByClause("weight asc");
+        return treeMapper.selectByExample(example);
+    }
+
 }

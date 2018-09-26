@@ -1,6 +1,7 @@
 package com.ccq.springbootkafka.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class Tree {
     private Long id;
@@ -16,6 +17,8 @@ public class Tree {
     private Date createTime;
 
     private Date updateTime;
+
+    private List<Tree> childs;
 
     public Long getId() {
         return id;
@@ -71,5 +74,13 @@ public class Tree {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public List<Tree> getChilds() {
+        return childs;
+    }
+
+    public void setChilds(List<Tree> childs) {
+        this.childs = childs;
     }
 }
