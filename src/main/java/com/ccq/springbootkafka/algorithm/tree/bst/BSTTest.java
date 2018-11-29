@@ -1,6 +1,4 @@
-package com.ccq.springbootkafka.algorithm.tree;
-
-import com.ccq.springbootkafka.algorithm.tree.bst.BST;
+package com.ccq.springbootkafka.algorithm.tree.bst;
 
 import java.util.Iterator;
 
