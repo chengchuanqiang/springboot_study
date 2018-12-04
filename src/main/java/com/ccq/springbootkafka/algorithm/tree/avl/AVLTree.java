@@ -198,6 +198,58 @@ public class AVLTree<E extends Comparable<E>> extends BST<E> {
         }
     }
 
+    @Override
+    public boolean delete(E e) {
+        TreeNode<E> parent = null;
+        TreeNode<E> current = root;
+        while (current != null) {
+            if (e.compareTo(current.getElement()) < 0) {
+                parent = current;
+                current = current.getLeft();
+            } else if (e.compareTo(current.getElement()) > 0) {
+                parent = current;
+                current = current.getRight();
+            } else {
+                break;
+            }
+        }
+        // 没有找到e
+        if (current == null) {
+            return false;
+        }
+
+        if (current.getLeft() == null) {
+            // case1:没有左孩子
+            if (parent == null) {
+                root = current.getRight();
+            } else {
+                if (e.compareTo(parent.getElement()) < 0) {
+                    parent.setLeft(current.getRight());
+                } else {
+                    parent.setRight(current.getRight());
+                }
+                balancePath(parent.getElement());
+            }
+        } else {
+            // case:有左孩子
+            TreeNode<E> parentOfRightMost = current;
+            TreeNode<E> rightMost = current.getLeft();
+            while (rightMost.getRight() != null) {
+                parentOfRightMost = rightMost;
+                rightMost = rightMost.getRight();
+            }
+
+            current.setElement(rightMost.getElement());
+            if (parentOfRightMost.getRight() == rightMost) {
+                parentOfRightMost.setRight(rightMost.getLeft());
+            } else {
+                parentOfRightMost.setLeft(rightMost.getLeft());
+            }
+            balancePath(parentOfRightMost.getElement());
+        }
+        size--;
+        return true;
+    }
 
     protected static class AVLTreeNode<E extends Comparable<E>> extends BST.TreeNode<E> {
 
