@@ -32,6 +32,14 @@ public interface Tree<E> extends Iterable<E> {
     boolean delete(E e);
 
     /**
+     * 获取当前节点的高度
+     *
+     * @return 高度
+     */
+    int getHeight();
+
+    
+    /**
      * 先序遍历
      */
     void inorder();

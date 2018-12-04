@@ -25,12 +25,36 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
     }
 
     public static class TreeNode<E extends Comparable<E>> {
-        E element;
-        TreeNode<E> left;
-        TreeNode<E> right;
+        protected E element;
+        protected TreeNode<E> left;
+        protected TreeNode<E> right;
 
-        TreeNode(E element) {
+        public TreeNode(E element) {
             this.element = element;
+        }
+
+        public E getElement() {
+            return element;
+        }
+
+        public void setElement(E element) {
+            this.element = element;
+        }
+
+        public TreeNode<E> getLeft() {
+            return left;
+        }
+
+        public void setLeft(TreeNode<E> left) {
+            this.left = left;
+        }
+
+        public TreeNode<E> getRight() {
+            return right;
+        }
+
+        public void setRight(TreeNode<E> right) {
+            this.right = right;
         }
     }
 
@@ -78,7 +102,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         return true;
     }
 
-    private TreeNode<E> createTreeNode(E e) {
+    protected TreeNode<E> createTreeNode(E e) {
         return new TreeNode<>(e);
     }
 
@@ -134,6 +158,35 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         return true;
     }
 
+    @Override
+    public int getHeight() {
+        return getHeight(root);
+    }
+
+    private int getHeight(TreeNode<E> node) {
+
+        if (node == null) {
+            return 0;
+        }
+
+        return Math.max(getHeight(node.getLeft()), getHeight(node.getRight())) + 1;
+    }
+
+    public List<TreeNode<E>> path(E e) {
+        List<TreeNode<E>> list = new ArrayList<>();
+        TreeNode<E> current = root;
+        while (current != null) {
+            list.add(current);
+            if (e.compareTo(current.element) < 0) {
+                current = current.left;
+            } else if (e.compareTo(current.element) > 0) {
+                current = current.right;
+            } else {
+                break;
+            }
+        }
+        return list;
+    }
 
     @Override
     public void inorder() {
@@ -247,5 +300,9 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
             list.clear();
             inorder(root, list);
         }
+    }
+
+    public TreeNode<E> getRoot() {
+        return root;
     }
 }

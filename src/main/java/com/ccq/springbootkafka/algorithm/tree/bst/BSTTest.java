@@ -14,6 +14,7 @@ public class BSTTest {
         Integer[] objs = {2, 4, 3, 5, 9, 8, 7, 5};
         BST<Integer> bst = new BST<>(objs);
         bst.inorder();
+        System.out.println("tree height is : " + bst.getHeight());
 
         Iterator<Integer> iterator = bst.iterator();
         while (iterator.hasNext()) {
