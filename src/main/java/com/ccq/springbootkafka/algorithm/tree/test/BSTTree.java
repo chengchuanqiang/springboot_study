@@ -166,11 +166,10 @@ public class BSTTree<E extends Comparable<E>> {
             // 方法2、找到比待删除结点小的最大结点，也就是待删除节点的前驱，即左子树结点的最大结点
 
             // 实现使用方法1
-            // 注意：
-            TreeNode<E> successor = new TreeNode<>(getMinTreeNode(node.right));
+            // 获取后继
+            TreeNode<E> successor = getMinTreeNode(node.right);
 
-//            successor.right = removeMin(node.right);
-
+            // 删除右结点的后继
             successor.right = delete(node.right, successor.element);
             successor.left = node.left;
 
@@ -199,18 +198,18 @@ public class BSTTree<E extends Comparable<E>> {
      * @param node 结点
      * @return treeNode
      */
-    private TreeNode<E> removeMin(TreeNode<E> node) {
-
-        if (node.left == null) {
-            TreeNode<E> rightNode = node.right;
-            node.right = null;
-            size--;
-            return rightNode;
-        }
-
-        node.left = removeMin(node.left);
-        return node;
-    }
+//    private TreeNode<E> removeMin(TreeNode<E> node) {
+//
+//        if (node.left == null) {
+//            TreeNode<E> rightNode = node.right;
+//            node.right = null;
+//            size--;
+//            return rightNode;
+//        }
+//
+//        node.left = removeMin(node.left);
+//        return node;
+//    }
 
     /**
      * 中序遍历

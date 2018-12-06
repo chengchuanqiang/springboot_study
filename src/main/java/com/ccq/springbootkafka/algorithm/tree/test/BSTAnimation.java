@@ -19,7 +19,6 @@ import javafx.stage.Stage;
  ********************************/
 public class BSTAnimation extends Application {
 
-
     @Override
     public void start(Stage primaryStage) {
         BSTTree<Integer> tree = new BSTTree<>();
