@@ -1,5 +1,6 @@
 package com.ccq.springbootkafka.algorithm.tree.bst;
 
+import com.ccq.springbootkafka.algorithm.tree.TreeNode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -35,7 +36,7 @@ public class BTView extends Pane {
         }
     }
 
-    private void displayTree(BST.TreeNode<Integer> root, double x, double y, double hGap) {
+    private void displayTree(TreeNode<Integer> root, double x, double y, double hGap) {
         if (root.left != null) {
             getChildren().add(new Line(x - hGap, y + vGap, x, y));
             displayTree(root.left, x - hGap, y + vGap, hGap / 2);

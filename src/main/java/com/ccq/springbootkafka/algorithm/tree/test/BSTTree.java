@@ -1,5 +1,7 @@
 package com.ccq.springbootkafka.algorithm.tree.test;
 
+import com.ccq.springbootkafka.algorithm.tree.TreeNode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class BSTTree<E extends Comparable<E>> {
     /**
      * 根结点
      */
-    private TreeNode<E> root;
+    protected TreeNode<E> root;
 
     /**
      * 结点个数
@@ -32,26 +34,14 @@ public class BSTTree<E extends Comparable<E>> {
         }
     }
 
-    /**
-     * 结点结构定义
-     *
-     * @param <E> 结点泛型
-     */
-    private class TreeNode<E extends Comparable<E>> {
-        E element;
-        TreeNode<E> left;
-        TreeNode<E> right;
-
-        public TreeNode(E element) {
-            this.element = element;
-        }
-
-        public TreeNode(TreeNode<E> node) {
-            this.left = node.left;
-            this.right = node.right;
-            this.element = node.element;
-        }
+    public int getSize() {
+        return size;
     }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
 
     /**
      * 插入结点
@@ -179,7 +169,9 @@ public class BSTTree<E extends Comparable<E>> {
             // 注意：
             TreeNode<E> successor = new TreeNode<>(getMinTreeNode(node.right));
 
-            successor.right = removeMin(node.right);
+//            successor.right = removeMin(node.right);
+
+            successor.right = delete(node.right, successor.element);
             successor.left = node.left;
 
             node.left = node.right = null;

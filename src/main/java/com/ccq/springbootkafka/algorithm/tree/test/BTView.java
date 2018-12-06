@@ -1,7 +1,6 @@
-package com.ccq.springbootkafka.algorithm.tree.avl;
+package com.ccq.springbootkafka.algorithm.tree.test;
 
 import com.ccq.springbootkafka.algorithm.tree.TreeNode;
-import com.ccq.springbootkafka.algorithm.tree.bst.BST;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -14,14 +13,14 @@ import javafx.scene.text.Text;
  ***@Date 2018/11/26 19:47
  ***@Version 1.0.0
  ********************************/
-public class AVLTreeView extends Pane {
+public class BTView extends Pane {
 
-    private BST<Integer> tree;
+    private BSTTree<Integer> tree;
 
     private double radius = 15;
     private double vGap = 50;
 
-    AVLTreeView(BST<Integer> tree) {
+    BTView(BSTTree<Integer> tree) {
         this.tree = tree;
         setStatus("Tree is empty");
     }
@@ -32,8 +31,8 @@ public class AVLTreeView extends Pane {
 
     public void displayTree() {
         this.getChildren().clear();
-        if (tree.getRoot() != null) {
-            displayTree(tree.getRoot(), getWidth() / 2, vGap, getWidth() / 4);
+        if (tree.root != null) {
+            displayTree(tree.root, getWidth() / 2, vGap, getWidth() / 4);
         }
     }
 

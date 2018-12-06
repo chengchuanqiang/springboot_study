@@ -25,6 +25,8 @@ public class BSTTest {
         System.out.println("is BST : " + bst.isBST());
         bst.inorder();
 
+        System.out.println("isEmpty : " + bst.isEmpty());
+
     }
 
 }

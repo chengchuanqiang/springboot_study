@@ -28,14 +28,14 @@ public class AVLTreeTest {
         System.out.println("search 2 is : " + avlTree.search(2));
         System.out.println("search 22 is : " + avlTree.search(22));
 
-//        System.out.println("delete 1 is : " + avlTree.delete(1));
-//        System.out.println("delete 2 is : " + avlTree.delete(2));
-//        System.out.println("is AVLTree : " + avlTree.isBST());
-//        avlTree.inorder();
+        System.out.println("delete 1 is : " + avlTree.delete(1));
+        System.out.println("delete 2 is : " + avlTree.delete(2));
+        System.out.println("is AVLTree : " + avlTree.isBST());
+        avlTree.inorder();
 
-//        System.out.println("delete 7 is : " + avlTree.delete(7));
-//        System.out.println("is AVLTree : " + avlTree.isBST());
-//        avlTree.inorder();
+        System.out.println("delete 7 is : " + avlTree.delete(7));
+        System.out.println("is AVLTree : " + avlTree.isBST());
+        avlTree.inorder();
 
     }
 

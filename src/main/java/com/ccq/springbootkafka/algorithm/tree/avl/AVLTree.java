@@ -1,5 +1,7 @@
 package com.ccq.springbootkafka.algorithm.tree.avl;
 
+import com.ccq.springbootkafka.algorithm.tree.AVLTreeNode;
+import com.ccq.springbootkafka.algorithm.tree.TreeNode;
 import com.ccq.springbootkafka.algorithm.tree.bst.BST;
 
 import java.util.List;
@@ -21,18 +23,18 @@ public class AVLTree<E extends Comparable<E>> extends BST<E> {
 
     @Override
     protected AVLTreeNode<E> createTreeNode(E e) {
-        return new AVLTreeNode<E>(e);
+        return new AVLTreeNode<>(e);
     }
 
     private void updateHeight(AVLTreeNode<E> node) {
-        if (node.getLeft() == null && node.getRight() == null) {
+        if (node.left == null && node.right == null) {
             node.height = 0;
-        } else if (node.getLeft() == null) {
-            node.height = ((AVLTreeNode<E>) node.getRight()).getHeight() + 1;
-        } else if (node.getRight() == null) {
-            node.height = ((AVLTreeNode<E>) node.getLeft()).getHeight() + 1;
+        } else if (node.left == null) {
+            node.height = ((AVLTreeNode<E>) node.right).height + 1;
+        } else if (node.right == null) {
+            node.height = ((AVLTreeNode<E>) node.left).height + 1;
         } else {
-            node.height = Math.max(((AVLTreeNode<E>) node.getLeft()).getHeight(), ((AVLTreeNode<E>) node.getRight()).getHeight()) + 1;
+            node.height = Math.max(((AVLTreeNode<E>) node.left).height, ((AVLTreeNode<E>) node.right).height) + 1;
         }
     }
 
@@ -57,14 +59,14 @@ public class AVLTree<E extends Comparable<E>> extends BST<E> {
 
             switch (balanceFactor(node)) {
                 case -2:
-                    if (balanceFactor((AVLTreeNode<E>) node.getLeft()) <= 0) {
+                    if (balanceFactor((AVLTreeNode<E>) node.left) <= 0) {
                         balanceLL(node, parent);
                     } else {
                         balanceLR(node, parent);
                     }
                     break;
                 case 2:
-                    if (balanceFactor((AVLTreeNode<E>) node.getRight()) >= 0) {
+                    if (balanceFactor((AVLTreeNode<E>) node.right) >= 0) {
                         balanceRR(node, parent);
                     } else {
                         balanceRL(node, parent);
@@ -84,20 +86,20 @@ public class AVLTree<E extends Comparable<E>> extends BST<E> {
      * @param parent 需要旋转节点的父节点
      */
     private void balanceLL(AVLTreeNode<E> A, AVLTreeNode<E> parent) {
-        TreeNode<E> B = A.getLeft();
+        TreeNode<E> B = A.left;
 
         if (A == root) {
             root = B;
         } else {
-            if (parent.getLeft() == A) {
-                parent.setLeft(B);
+            if (parent.left == A) {
+                parent.left = B;
             } else {
-                parent.setRight(B);
+                parent.right = B;
             }
         }
 
-        A.setLeft(B.getRight());
-        B.setRight(A);
+        A.left = B.right;
+        B.right = A;
 
         updateHeight(A);
         updateHeight((AVLTreeNode<E>) B);
@@ -111,21 +113,21 @@ public class AVLTree<E extends Comparable<E>> extends BST<E> {
      * @param parentOfA 需要旋转节点的父节点
      */
     private void balanceLR(AVLTreeNode<E> A, AVLTreeNode<E> parentOfA) {
-        TreeNode<E> B = A.getLeft();
-        TreeNode<E> C = B.getRight();
+        TreeNode<E> B = A.left;
+        TreeNode<E> C = B.right;
         if (A == root) {
             root = C;
         } else {
-            if (parentOfA.getLeft() == A) {
-                parentOfA.setLeft(C);
+            if (parentOfA.left == A) {
+                parentOfA.left = C;
             } else {
-                parentOfA.setRight(C);
+                parentOfA.right = C;
             }
         }
-        A.setLeft(C.getRight());
-        B.setRight(C.getLeft());
-        C.setLeft(B);
-        C.setRight(A);
+        A.left = C.right;
+        B.right = C.left;
+        C.left = B;
+        C.right = A;
 
         updateHeight(A);
         updateHeight((AVLTreeNode<E>) B);
@@ -139,20 +141,20 @@ public class AVLTree<E extends Comparable<E>> extends BST<E> {
      * @param parent 需要旋转节点的父节点
      */
     private void balanceRR(AVLTreeNode<E> A, AVLTreeNode<E> parent) {
-        TreeNode<E> B = A.getRight();
+        TreeNode<E> B = A.right;
 
         if (A == root) {
             root = B;
         } else {
-            if (parent.getLeft() == A) {
-                parent.setLeft(B);
+            if (parent.left == A) {
+                parent.left = B;
             } else {
-                parent.setRight(B);
+                parent.right = B;
             }
         }
 
-        A.setRight(B.getLeft());
-        B.setLeft(A);
+        A.right = B.left;
+        B.left = A;
 
         updateHeight(A);
         updateHeight((AVLTreeNode<E>) B);
@@ -165,23 +167,23 @@ public class AVLTree<E extends Comparable<E>> extends BST<E> {
      * @param parentOfA 需要旋转节点的父节点
      */
     private void balanceRL(AVLTreeNode<E> A, AVLTreeNode<E> parentOfA) {
-        TreeNode<E> B = A.getRight();
-        TreeNode<E> C = B.getLeft();
+        TreeNode<E> B = A.right;
+        TreeNode<E> C = B.left;
 
         if (A == root) {
             root = C;
         } else {
-            if (parentOfA.getLeft() == A) {
-                parentOfA.setLeft(C);
+            if (parentOfA.left == A) {
+                parentOfA.left = C;
             } else {
-                parentOfA.setRight(C);
+                parentOfA.right = C;
             }
         }
 
-        A.setRight(C.getLeft());
-        B.setLeft(C.getRight());
-        C.setLeft(A);
-        C.setRight(B);
+        A.right = C.left;
+        B.left = C.right;
+        C.left = A;
+        C.right = B;
 
         updateHeight(A);
         updateHeight((AVLTreeNode<E>) B);
@@ -189,12 +191,12 @@ public class AVLTree<E extends Comparable<E>> extends BST<E> {
     }
 
     private int balanceFactor(AVLTreeNode<E> node) {
-        if (node.getRight() == null) {
+        if (node.right == null) {
             return -node.height;
-        } else if (node.getLeft() == null) {
+        } else if (node.left == null) {
             return node.height;
         } else {
-            return ((AVLTreeNode<E>) node.getRight()).height - ((AVLTreeNode<E>) node.getLeft()).height;
+            return ((AVLTreeNode<E>) node.right).height - ((AVLTreeNode<E>) node.left).height;
         }
     }
 
@@ -203,12 +205,12 @@ public class AVLTree<E extends Comparable<E>> extends BST<E> {
         TreeNode<E> parent = null;
         TreeNode<E> current = root;
         while (current != null) {
-            if (e.compareTo(current.getElement()) < 0) {
+            if (e.compareTo(current.element) < 0) {
                 parent = current;
-                current = current.getLeft();
-            } else if (e.compareTo(current.getElement()) > 0) {
+                current = current.left;
+            } else if (e.compareTo(current.element) > 0) {
                 parent = current;
-                current = current.getRight();
+                current = current.right;
             } else {
                 break;
             }
@@ -218,55 +220,37 @@ public class AVLTree<E extends Comparable<E>> extends BST<E> {
             return false;
         }
 
-        if (current.getLeft() == null) {
+        if (current.left == null) {
             // case1:没有左孩子
             if (parent == null) {
-                root = current.getRight();
+                root = current.right;
             } else {
-                if (e.compareTo(parent.getElement()) < 0) {
-                    parent.setLeft(current.getRight());
+                if (e.compareTo(parent.element) < 0) {
+                    parent.left = current.right;
                 } else {
-                    parent.setRight(current.getRight());
+                    parent.right = current.right;
                 }
-                balancePath(parent.getElement());
+                balancePath(parent.element);
             }
         } else {
             // case:有左孩子
             TreeNode<E> parentOfRightMost = current;
-            TreeNode<E> rightMost = current.getLeft();
-            while (rightMost.getRight() != null) {
+            TreeNode<E> rightMost = current.left;
+            while (rightMost.right != null) {
                 parentOfRightMost = rightMost;
-                rightMost = rightMost.getRight();
+                rightMost = rightMost.right;
             }
 
-            current.setElement(rightMost.getElement());
-            if (parentOfRightMost.getRight() == rightMost) {
-                parentOfRightMost.setRight(rightMost.getLeft());
+            current.element = rightMost.element;
+            if (parentOfRightMost.right == rightMost) {
+                parentOfRightMost.right = rightMost.left;
             } else {
-                parentOfRightMost.setLeft(rightMost.getLeft());
+                parentOfRightMost.left = rightMost.left;
             }
-            balancePath(parentOfRightMost.getElement());
+            balancePath(parentOfRightMost.element);
         }
         size--;
         return true;
     }
-
-    protected static class AVLTreeNode<E extends Comparable<E>> extends BST.TreeNode<E> {
-
-        protected int height = 0;
-
-        public AVLTreeNode(E element) {
-            super(element);
-        }
-
-        public int getHeight() {
-            return height;
-        }
-
-        public void setHeight(int height) {
-            this.height = height;
-        }
-    }
-
 
 }

@@ -1,5 +1,7 @@
 package com.ccq.springbootkafka.algorithm.tree.bst;
 
+import com.ccq.springbootkafka.algorithm.tree.TreeNode;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
  ********************************/
 public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 
-    protected TreeNode<E> root;
+    public TreeNode<E> root;
     protected int size = 0;
 
     public BST() {
@@ -24,39 +26,6 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         }
     }
 
-    public static class TreeNode<E extends Comparable<E>> {
-        protected E element;
-        protected TreeNode<E> left;
-        protected TreeNode<E> right;
-
-        public TreeNode(E element) {
-            this.element = element;
-        }
-
-        public E getElement() {
-            return element;
-        }
-
-        public void setElement(E element) {
-            this.element = element;
-        }
-
-        public TreeNode<E> getLeft() {
-            return left;
-        }
-
-        public void setLeft(TreeNode<E> left) {
-            this.left = left;
-        }
-
-        public TreeNode<E> getRight() {
-            return right;
-        }
-
-        public void setRight(TreeNode<E> right) {
-            this.right = right;
-        }
-    }
 
     @Override
     public boolean search(E e) {
@@ -169,7 +138,7 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
             return 0;
         }
 
-        return Math.max(getHeight(node.getLeft()), getHeight(node.getRight())) + 1;
+        return Math.max(getHeight(node.left), getHeight(node.right)) + 1;
     }
 
     public List<TreeNode<E>> path(E e) {
