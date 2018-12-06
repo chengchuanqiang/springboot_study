@@ -1,12 +1,6 @@
-package com.ccq.springbootkafka.algorithm.tree.bst;
+package com.ccq.springbootkafka.algorithm.tree;
 
-/**
- * 二叉搜索树接口
- *
- * @param <E>
- */
-public interface Tree<E> extends Iterable<E> {
-
+public interface BinaryTree<E extends Comparable<E>> extends Iterable<E> {
     /**
      * 查询数值
      *
@@ -31,14 +25,6 @@ public interface Tree<E> extends Iterable<E> {
      */
     boolean delete(E e);
 
-    /**
-     * 获取当前节点的高度
-     *
-     * @return 高度
-     */
-    int getHeight();
-
-    
     /**
      * 先序遍历
      */
@@ -69,10 +55,12 @@ public interface Tree<E> extends Iterable<E> {
     boolean isEmpty();
 
     /**
-     * 判断是否是二叉搜索树
+     * 判断树是否为二叉搜索树
      *
      * @return true|false
      */
     boolean isBST();
+
+    TreeNode<E> getRoot();
 
 }

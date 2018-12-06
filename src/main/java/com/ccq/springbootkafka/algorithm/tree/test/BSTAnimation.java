@@ -1,5 +1,7 @@
 package com.ccq.springbootkafka.algorithm.tree.test;
 
+import com.ccq.springbootkafka.algorithm.tree.BinaryTree;
+import com.ccq.springbootkafka.algorithm.tree.impl.BinarySearchTree;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,9 +21,10 @@ import javafx.stage.Stage;
  ********************************/
 public class BSTAnimation extends Application {
 
+
     @Override
     public void start(Stage primaryStage) {
-        BSTTree<Integer> tree = new BSTTree<>();
+        BinaryTree<Integer> tree = new BinarySearchTree<>();
 
         BorderPane pane = new BorderPane();
         BTView view = new BTView(tree);

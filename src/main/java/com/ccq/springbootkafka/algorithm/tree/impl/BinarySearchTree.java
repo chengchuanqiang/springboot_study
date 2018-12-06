@@ -1,79 +1,39 @@
-package com.ccq.springbootkafka.algorithm.tree.test;
+package com.ccq.springbootkafka.algorithm.tree.impl;
 
+import com.ccq.springbootkafka.algorithm.tree.BinaryTree;
 import com.ccq.springbootkafka.algorithm.tree.TreeNode;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /********************************
- ***
+ *** 二叉搜索树递归实现
  ***@Author chengchuanqiang
- ***@Date 2018/12/5 13:31
+ ***@Date 2018/12/6 19:11
  ***@Version 1.0.0
  ********************************/
-public class BSTTree<E extends Comparable<E>> {
+public class BinarySearchTree<E extends Comparable<E>> implements BinaryTree<E> {
 
     /**
      * 根结点
      */
-    protected TreeNode<E> root;
+    private TreeNode<E> root;
 
     /**
      * 结点个数
      */
     private int size;
 
-    public BSTTree() {
+    public BinarySearchTree() {
         this.root = null;
         size = 0;
     }
 
-    public BSTTree(E[] objs) {
+    public BinarySearchTree(E[] objs) {
         for (E obj : objs) {
             insert(obj);
         }
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-
-    /**
-     * 插入结点
-     *
-     * @param e 值
-     */
-    public void insert(E e) {
-        root = insert(root, e);
-    }
-
-    /**
-     * 向以node为根结点的二叉搜索树中，插入结点e，使用递归算法
-     * 返回插入新结点后的二叉搜索树的根
-     *
-     * @param node 当前树的根结点
-     * @param e    值
-     * @return 插入新结点后 二叉搜索树的根
-     */
-    private TreeNode<E> insert(TreeNode<E> node, E e) {
-        if (node == null) {
-            size++;
-            return new TreeNode<>(e);
-        }
-
-        if (e.compareTo(node.element) < 0) {
-            node.left = insert(node.left, e);
-        } else if (e.compareTo(node.element) > 0) {
-            node.right = insert(node.right, e);
-        } else {
-            assert e.compareTo(node.element) == 0;
-        }
-        return node;
     }
 
     /**
@@ -82,6 +42,7 @@ public class BSTTree<E extends Comparable<E>> {
      * @param e 值
      * @return true|false
      */
+    @Override
     public boolean search(E e) {
         return search(root, e);
     }
@@ -110,11 +71,47 @@ public class BSTTree<E extends Comparable<E>> {
     }
 
     /**
+     * 插入结点
+     *
+     * @param e 值
+     */
+    @Override
+    public boolean insert(E e) {
+        root = insert(root, e);
+        return root != null;
+    }
+
+    /**
+     * 向以node为根结点的二叉搜索树中，插入结点e，使用递归算法
+     * 返回插入新结点后的二叉搜索树的根
+     *
+     * @param node 当前树的根结点
+     * @param e    值
+     * @return 插入新结点后 二叉搜索树的根
+     */
+    private TreeNode<E> insert(TreeNode<E> node, E e) {
+        if (node == null) {
+            size++;
+            return new TreeNode<>(e);
+        }
+
+        if (e.compareTo(node.element) < 0) {
+            node.left = insert(node.left, e);
+        } else if (e.compareTo(node.element) > 0) {
+            node.right = insert(node.right, e);
+        } else {
+            assert e.compareTo(node.element) == 0;
+        }
+        return node;
+    }
+
+    /**
      * 删除结点e
      *
      * @param e 值
      * @return true|false
      */
+    @Override
     public boolean delete(E e) {
         if (!search(e)) {
             return false;
@@ -191,29 +188,7 @@ public class BSTTree<E extends Comparable<E>> {
         return getMinTreeNode(node.left);
     }
 
-    /**
-     * 删除以node结点为根的最小结点
-     * 返回删除结点后新的根
-     *
-     * @param node 结点
-     * @return treeNode
-     */
-//    private TreeNode<E> removeMin(TreeNode<E> node) {
-//
-//        if (node.left == null) {
-//            TreeNode<E> rightNode = node.right;
-//            node.right = null;
-//            size--;
-//            return rightNode;
-//        }
-//
-//        node.left = removeMin(node.left);
-//        return node;
-//    }
-
-    /**
-     * 中序遍历
-     */
+    @Override
     public void inorder() {
         inorder(root);
         System.out.println();
@@ -228,11 +203,47 @@ public class BSTTree<E extends Comparable<E>> {
         inorder(root.right);
     }
 
-    /**
-     * 是否是二叉搜索树
-     *
-     * @return true|false
-     */
+    @Override
+    public void preorder() {
+        preorder(root);
+        System.out.println();
+    }
+
+    private void preorder(TreeNode<E> root) {
+        if (root == null) {
+            return;
+        }
+        System.out.print(root.element + " ");
+        preorder(root.left);
+        preorder(root.right);
+    }
+
+    @Override
+    public void postorder() {
+        postorder(root);
+        System.out.println();
+    }
+
+    private void postorder(TreeNode<E> root) {
+        if (root == null) {
+            return;
+        }
+        postorder(root.left);
+        postorder(root.right);
+        System.out.print(root.element + " ");
+    }
+
+    @Override
+    public int getSize() {
+        return size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
     public boolean isBST() {
         // 二叉搜索树中序遍历一定是递增的
         List<E> list = new ArrayList<>();
@@ -260,4 +271,15 @@ public class BSTTree<E extends Comparable<E>> {
         list.add(root.element);
         inorder(root.right, list);
     }
+
+    @Override
+    public Iterator<E> iterator() {
+        return null;
+    }
+
+    @Override
+    public TreeNode<E> getRoot() {
+        return this.root;
+    }
+
 }

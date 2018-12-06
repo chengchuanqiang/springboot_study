@@ -1,35 +1,50 @@
-package com.ccq.springbootkafka.algorithm.tree.bst;
+package com.ccq.springbootkafka.algorithm.tree.impl;
 
+import com.ccq.springbootkafka.algorithm.tree.BinaryTree;
 import com.ccq.springbootkafka.algorithm.tree.TreeNode;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 
 /********************************
- *** 二叉查找树实现
+ *** 二叉搜索树非递归实现
  ***@Author chengchuanqiang
- ***@Date 2018/11/26 9:39
+ ***@Date 2018/12/6 19:46
  ***@Version 1.0.0
  ********************************/
-public class BST<E extends Comparable<E>> extends AbstractTree<E> {
+public class BinarySearchTree2<E extends Comparable<E>> implements BinaryTree<E> {
 
-    public TreeNode<E> root;
-    protected int size = 0;
+    /**
+     * 根结点
+     */
+    private TreeNode<E> root;
 
-    public BST() {
+    /**
+     * 结点个数
+     */
+    private int size;
+
+    public BinarySearchTree2() {
+        this.root = null;
+        size = 0;
     }
 
-    public BST(E[] objs) {
+    public BinarySearchTree2(E[] objs) {
         for (E obj : objs) {
             insert(obj);
         }
     }
 
+    private TreeNode<E> createTreeNode(E e) {
+        return new TreeNode<>(e);
+    }
 
     @Override
     public boolean search(E e) {
         TreeNode<E> current = root;
+
         while (current != null) {
             if (e.compareTo(current.element) < 0) {
                 current = current.left;
@@ -71,13 +86,8 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         return true;
     }
 
-    protected TreeNode<E> createTreeNode(E e) {
-        return new TreeNode<>(e);
-    }
-
     @Override
     public boolean delete(E e) {
-
         TreeNode<E> parent = null;
         TreeNode<E> current = root;
         while (current != null) {
@@ -128,78 +138,59 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
     }
 
     @Override
-    public int getHeight() {
-        return getHeight(root);
-    }
-
-    private int getHeight(TreeNode<E> node) {
-
-        if (node == null) {
-            return 0;
-        }
-
-        return Math.max(getHeight(node.left), getHeight(node.right)) + 1;
-    }
-
-    public List<TreeNode<E>> path(E e) {
-        List<TreeNode<E>> list = new ArrayList<>();
-        TreeNode<E> current = root;
-        while (current != null) {
-            list.add(current);
-            if (e.compareTo(current.element) < 0) {
-                current = current.left;
-            } else if (e.compareTo(current.element) > 0) {
-                current = current.right;
+    public void inorder() {
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = root;
+        while (node != null || !stack.isEmpty()) {
+            if (node != null) {
+                stack.push(node);
+                node = node.left;
             } else {
-                break;
+                node = stack.pop();
+                System.out.print(node.element + " ");
+                node = node.right;
             }
         }
-        return list;
-    }
-
-    @Override
-    public void inorder() {
-        inorder(root);
         System.out.println();
-    }
-
-    private void inorder(TreeNode<E> root) {
-        if (root == null) {
-            return;
-        }
-        inorder(root.left);
-        System.out.print(root.element + " ");
-        inorder(root.right);
     }
 
     @Override
     public void preorder() {
-        preorder(root);
-        System.out.println();
-    }
-
-    private void preorder(TreeNode<E> root) {
-        if (root == null) {
-            return;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = root;
+        while (node != null || !stack.isEmpty()) {
+            if (node != null) {
+                System.out.print(node.element + " ");
+                stack.push(node);
+                node = node.left;
+            } else {
+                node = stack.pop();
+                node = node.right;
+            }
         }
-        System.out.print(root.element + " ");
-        preorder(root.left);
-        preorder(root.right);
+        System.out.println();
     }
 
     @Override
     public void postorder() {
-        postorder(root);
-        System.out.println();
-    }
-
-    private void postorder(TreeNode<E> root) {
-        if (root == null) {
-            return;
+        Stack<TreeNode> stack = new Stack<>();
+        Stack<TreeNode> output = new Stack<>();
+        TreeNode node = root;
+        while (node != null || !stack.isEmpty()) {
+            if (node != null) {
+                output.push(node);
+                stack.push(node);
+                node = node.right;
+            } else {
+                node = stack.pop();
+                node = node.left;
+            }
         }
-        postorder(root.left);
-        postorder(root.right);
-        System.out.print(root.element + " ");
+        while (!output.isEmpty()) {
+            System.out.print(output.pop().element + " ");
+        }
+        System.out.println();
+
     }
 
     @Override
@@ -208,26 +199,13 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
     }
 
     @Override
-    public boolean isBST() {
-        // 二叉搜索树中序遍历一定是递增的
-        List<E> list = new ArrayList<>();
-        inorder(root, list);
-        E pre = list.get(0);
-        for (int i = 1; i < list.size(); i++) {
-            if (list.get(i).compareTo(pre) < 0) {
-                return false;
-            }
-        }
-        return true;
+    public boolean isEmpty() {
+        return size == 0;
     }
 
-    private void inorder(TreeNode<E> root, List<E> list) {
-        if (root == null) {
-            return;
-        }
-        inorder(root.left, list);
-        list.add(root.element);
-        inorder(root.right, list);
+    @Override
+    public boolean isBST() {
+        return false;
     }
 
     @Override
@@ -271,7 +249,9 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         }
     }
 
+    @Override
     public TreeNode<E> getRoot() {
-        return root;
+        return this.root;
     }
+
 }

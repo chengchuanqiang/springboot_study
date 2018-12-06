@@ -1,17 +1,36 @@
 package com.ccq.springbootkafka.algorithm.tree.test;
 
+
+import com.ccq.springbootkafka.algorithm.tree.BinaryTree;
+import com.ccq.springbootkafka.algorithm.tree.impl.BinarySearchTree;
+import com.ccq.springbootkafka.algorithm.tree.impl.BinarySearchTree2;
+
 /********************************
- *** 二叉查找树测试
+ *** 测试类
  ***@Author chengchuanqiang
- ***@Date 2018/11/26 9:56
+ ***@Date 2018/12/6 19:33
  ***@Version 1.0.0
  ********************************/
-public class BSTTest {
-
+public class Test {
     public static void main(String[] args) {
-        Integer[] objs = {2, 4, 3, 5, 9, 8, 7, 5};
-        BSTTree<Integer> bst = new BSTTree<>(objs);
+        Integer[] nums = {2, 4, 3, 5, 9, 8, 7, 5};
+
+        // 递归实现二叉搜索树测试
+        BinaryTree<Integer> binarySearchTree = new BinarySearchTree<>(nums);
+        test(binarySearchTree);
+
+        // 非递归实现二叉搜索树
+        BinarySearchTree2<Integer> binarySearchTree2 = new BinarySearchTree2<>(nums);
+        test(binarySearchTree2);
+
+    }
+
+
+    public static void test(BinaryTree<Integer> bst) {
+
         bst.inorder();
+        bst.preorder();
+        bst.postorder();
 
         System.out.println("search 2 is : " + bst.search(2));
         System.out.println("search 22 is : " + bst.search(22));
@@ -26,7 +45,5 @@ public class BSTTest {
         bst.inorder();
 
         System.out.println("isEmpty : " + bst.isEmpty());
-
     }
-
 }

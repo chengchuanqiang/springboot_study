@@ -1,5 +1,6 @@
 package com.ccq.springbootkafka.algorithm.tree.test;
 
+import com.ccq.springbootkafka.algorithm.tree.BinaryTree;
 import com.ccq.springbootkafka.algorithm.tree.TreeNode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -15,14 +16,14 @@ import javafx.scene.text.Text;
  ********************************/
 public class BTView extends Pane {
 
-    private BSTTree<Integer> tree;
+    private BinaryTree<Integer> tree;
 
     private double radius = 15;
     private double vGap = 50;
 
-    BTView(BSTTree<Integer> tree) {
+    BTView(BinaryTree<Integer> tree) {
         this.tree = tree;
-        setStatus("Tree is empty");
+        setStatus("BinaryTree is empty");
     }
 
     public void setStatus(String msg) {
@@ -31,8 +32,8 @@ public class BTView extends Pane {
 
     public void displayTree() {
         this.getChildren().clear();
-        if (tree.root != null) {
-            displayTree(tree.root, getWidth() / 2, vGap, getWidth() / 4);
+        if (tree.getRoot() != null) {
+            displayTree(tree.getRoot(), getWidth() / 2, vGap, getWidth() / 4);
         }
     }
 
