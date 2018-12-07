@@ -9,13 +9,10 @@ package com.ccq.springbootkafka.algorithm.tree;
  ********************************/
 public class AVLTreeNode<E extends Comparable<E>> extends TreeNode<E> {
 
-    public int height = 0;
+    public int height;
 
     public AVLTreeNode(E element) {
         super(element);
-    }
-
-    public AVLTreeNode(TreeNode<E> node) {
-        super(node);
+        this.height = 0;
     }
 }

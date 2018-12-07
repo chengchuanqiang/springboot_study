@@ -16,13 +16,10 @@ import javafx.scene.text.Text;
  ********************************/
 public class BTView extends Pane {
 
-    private BinaryTree<Integer> tree;
-
     private double radius = 15;
     private double vGap = 50;
 
-    BTView(BinaryTree<Integer> tree) {
-        this.tree = tree;
+    BTView() {
         setStatus("BinaryTree is empty");
     }
 
@@ -30,10 +27,10 @@ public class BTView extends Pane {
         getChildren().add(new Text(20, 20, msg));
     }
 
-    public void displayTree() {
+    public void displayTree(TreeNode<Integer> root) {
         this.getChildren().clear();
-        if (tree.getRoot() != null) {
-            displayTree(tree.getRoot(), getWidth() / 2, vGap, getWidth() / 4);
+        if (root != null) {
+            displayTree(root, getWidth() / 2, vGap, getWidth() / 4);
         }
     }
 
