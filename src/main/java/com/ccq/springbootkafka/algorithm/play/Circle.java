@@ -4,7 +4,7 @@ import java.awt.*;
 
 /**
  * @Author: ChengChuanQiang
- * @Description:
+ * @Description: 圆实体类
  * @Date: Created in 2018/12/15 17:02
  */
 public class Circle {

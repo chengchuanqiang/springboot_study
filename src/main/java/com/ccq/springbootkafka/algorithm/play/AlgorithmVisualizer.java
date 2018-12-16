@@ -13,11 +13,13 @@ import java.awt.event.MouseEvent;
  */
 public class AlgorithmVisualizer {
 
-    private Circle[] circles;
-    private AlgorithmFrame algorithmFrame;
+    private Circle[] circles;               // 数据
+    private AlgorithmFrame algorithmFrame;  // 视图
     private boolean isAnimated = true;
 
     public AlgorithmVisualizer(int canvasWidth, int canvasHeight, int n) {
+
+        // 初始化数据
         circles = new Circle[n];
         int r = 50;
         // Math.random() == [0 - 1)
@@ -29,6 +31,7 @@ public class AlgorithmVisualizer {
             circles[i] = new Circle(x, y, r, vx, vy);
         }
 
+        // 初始化视图
         EventQueue.invokeLater(() -> {
             algorithmFrame = new AlgorithmFrame("Welcome", canvasWidth, canvasHeight);
             algorithmFrame.addKeyListener(new AlgoKeyListener());
@@ -62,6 +65,9 @@ public class AlgorithmVisualizer {
         }
     }
 
+    /**
+     * 键盘监听类
+     */
     private class AlgoKeyListener extends KeyAdapter {
 
         @Override
@@ -72,6 +78,9 @@ public class AlgorithmVisualizer {
         }
     }
 
+    /**
+     * 鼠标监听键
+     */
     private class AlgoMouseListener extends MouseAdapter {
         @Override
         public void mousePressed(MouseEvent e) {
