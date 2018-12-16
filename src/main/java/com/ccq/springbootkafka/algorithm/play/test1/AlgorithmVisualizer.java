@@ -1,4 +1,4 @@
-package com.ccq.springbootkafka.algorithm.play;
+package com.ccq.springbootkafka.algorithm.play.test1;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
