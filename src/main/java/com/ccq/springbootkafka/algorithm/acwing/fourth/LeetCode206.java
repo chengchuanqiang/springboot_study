@@ -12,15 +12,15 @@ public class LeetCode206 {
         if (null == head) {
             return head;
         }
-        ListNode last = null;
+        ListNode pre = null;
         ListNode curr = head;
         ListNode next = head.next;
         while (null != next) {
             ListNode temp = next.next;
 
-            curr.next = last;
+            curr.next = pre;
             next.next = curr;
-            last = curr;
+            pre = curr;
             curr = next;
             next = temp;
         }
