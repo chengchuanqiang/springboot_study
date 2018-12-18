@@ -1,6 +1,7 @@
 package com.ccq.springbootkafka.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -18,23 +19,23 @@ public class User {
     @ApiModelProperty(value = "用户主键", dataType = "Long", hidden = true)
     private Long id;
 
-    @ApiModelProperty(value = "用户名", dataType = "string", example = "ccq")
-    private String username;
+    @ApiModelProperty(value = "用户名",name = "userName", dataType = "string", example = "ccq")
+    private String userName;
 
     @ApiModelProperty(value = "年龄", dataType = "integer", example = "22")
     private Integer age;
 
-    @ApiModelProperty(value = "创建时间", dataType = "string", hidden = true)
+    @ApiModelProperty(value = "创建时间", dataType = "string")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
-    @ApiModelProperty(value = "更新时间", dataType = "string", hidden = true)
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "更新时间", dataType = "string")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss",name = "updateTime")
     private Date updateTime;
 
-    public User(Long id, String username, Integer age, Date createTime, Date updateTime) {
+    public User(Long id, String userName, Integer age, Date createTime, Date updateTime) {
         this.id = id;
-        this.username = username;
+        this.userName = userName;
         this.age = age;
         this.createTime = createTime;
         this.updateTime = updateTime;

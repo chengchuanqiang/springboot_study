@@ -45,7 +45,7 @@ public class ProducerController {
     public BaseResponse send(@RequestBody Message message) {
 //        message.setDate(new Date());
         kafkaTemplate.send("test_topic", JSON.toJSONString(message));
-        return new BaseResponse(ResponseInfoType.SUCCESS.getMsg(), ResponseInfoType.SUCCESS.getCode(), true);
+        return new BaseResponse<>(ResponseInfoType.SUCCESS.getMsg(), ResponseInfoType.SUCCESS.getCode(), true);
     }
 
     /**
@@ -59,7 +59,7 @@ public class ProducerController {
     @GetMapping(value = "sendSl4j2Log/{msg}")
     public BaseResponse sendLog(@PathVariable(name = "msg") String msg) {
         LOGGER_KAFKA.info(msg);
-        return new BaseResponse(ResponseInfoType.SUCCESS.getMsg(), ResponseInfoType.SUCCESS.getCode(), true);
+        return new BaseResponse<>(ResponseInfoType.SUCCESS.getMsg(), ResponseInfoType.SUCCESS.getCode(), true);
     }
 
 }

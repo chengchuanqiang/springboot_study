@@ -4,7 +4,7 @@
 
   <resultMap id="BaseResultMap" type="com.ccq.springbootkafka.domain.User">
     <id column="id" property="id" jdbcType="BIGINT"/>
-    <result column="username" property="username" jdbcType="VARCHAR"/>
+    <result column="username" property="userName" jdbcType="VARCHAR"/>
     <result column="age" property="age" jdbcType="BIGINT"/>
     <result column="create_time" property="createTime" jdbcType="TIME"/>
     <result column="update_time" property="updateTime" jdbcType="TIME"/>
@@ -16,14 +16,14 @@
 
   <insert id="addUser" useGeneratedKeys="true" keyProperty="id">
       insert into user(username,age)
-      values (#{username}, #{age})
+      values (#{userName}, #{age})
   </insert>
 
   <update id="updateUser" parameterType="user" >
     update user
     <trim prefix="set" suffixOverrides=",">
-      <if test="username != null ">
-        username = #{username},
+      <if test="userName != null ">
+        username = #{userName},
       </if>
       <if test="age != null ">
         age = #{age},

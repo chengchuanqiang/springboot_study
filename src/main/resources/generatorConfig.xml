@@ -11,14 +11,14 @@
         </commentGenerator>
         <!-- 注释控制完毕 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/jarvis?useUnicode=true&amp;characterEncoding=UTF8&amp;tinyInt1isBit=false&amp;serverTimezone=Asia/Shanghai"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=UTF8&amp;tinyInt1isBit=false&amp;serverTimezone=Asia/Shanghai"
                         userId="root"
                         password="123456" />
         <javaModelGenerator targetPackage="com.ccq.springbootkafka.domain" targetProject="./src/main/java" />
         <sqlMapGenerator targetPackage="mybatis" targetProject="./src/main/resources" />
         <javaClientGenerator targetPackage="com.ccq.springbootkafka.mapper" targetProject="./src/main/java" type="XMLMAPPER" />
 
-        <table tableName="dashboard_chart" domainObjectName="dashboardChart">
+        <table tableName="tree" domainObjectName="tree">
             <generatedKey column="id" sqlStatement="mysql" identity="true" />
         </table>
 
