@@ -9,7 +9,7 @@ import java.util.List;
  ***@Date 2018/12/28 18:22
  ***@Version 1.0.0
  ********************************/
-public class LeedCode216 {
+public class LeetCode216 {
 
     public List<List<Integer>> combinationSum3(int k, int n) {
         List<List<Integer>> res = new ArrayList<>();
@@ -35,7 +35,7 @@ public class LeedCode216 {
     }
 
     public static void main(String[] args) {
-        LeedCode216 test = new LeedCode216();
+        LeetCode216 test = new LeetCode216();
 
         System.out.println(test.combinationSum3(3, 7));
         System.out.println(test.combinationSum3(3, 9));
