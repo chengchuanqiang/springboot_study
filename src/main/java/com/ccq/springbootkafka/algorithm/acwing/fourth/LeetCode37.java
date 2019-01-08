@@ -87,6 +87,7 @@ public class LeetCode37 {
             System.out.println(new String(board[i]));
         }
 
+        // 验证最后生成的数独是否正确
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 if (!test.validateRowAndCol(i, j, board) || !test.validateSubBoxes(i, j, board)) {
