@@ -36,7 +36,7 @@ public class LeetCode37 {
         return true;
     }
 
-    private boolean validateSubBoxes(int x, int y, char[][] board) {
+    private boolean validateRowAndCol(int x, int y, char[][] board) {
 
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -50,7 +50,7 @@ public class LeetCode37 {
         return true;
     }
 
-    private boolean validateRowAndCol(int x, int y, char[][] board) {
+    private boolean validateSubBoxes(int x, int y, char[][] board) {
         int ii = (x / 3) * 3;
         int jj = (y / 3) * 3;
 
