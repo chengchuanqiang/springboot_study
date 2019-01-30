@@ -15,24 +15,38 @@ import java.util.concurrent.Executors;
  ********************************/
 public class server {
 
+    /**
+     * 服务端开启端口号
+     */
     private static final int port = 20001;
-    private static final ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+    /**
+     * 固定大小线程池，个数为CPU处理核数 * 2
+     */
+    private static final ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
 
     public static void main(String[] args) throws IOException {
 
-        System.out.println(Runtime.getRuntime().availableProcessors());
+        // System.out.println(Runtime.getRuntime().availableProcessors());
 
+        // 创建服务端socket
         ServerSocket serverSocket = new ServerSocket();
+        // 绑定端口
         serverSocket.bind(new InetSocketAddress(port));
         System.out.println("server start success, ip: " + serverSocket.getLocalSocketAddress() + " port: " + serverSocket.getLocalPort());
 
         while (true) {
+            // 等待客户端连接，阻塞
             Socket clientSocket = serverSocket.accept();
+
+            // 单独启动一个线程去处理客户端连接，适当的增大并发量
             ServerHandler serverHandler = new ServerHandler(clientSocket);
             threadPool.submit(serverHandler);
         }
     }
 
+    /**
+     * 服务端处理类
+     */
     private static class ServerHandler implements Runnable {
 
         private Socket socket;

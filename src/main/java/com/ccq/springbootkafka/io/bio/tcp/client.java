@@ -16,14 +16,19 @@ public class client {
     private static final int port = 20001;
 
     public static void main(String[] args) {
+
+        // 客户端socket
         Socket socket = null;
         try {
             socket = new Socket();
+
+            // 连接服务端
             socket.connect(new InetSocketAddress(InetAddress.getLocalHost(), port), 3000);
 
             System.out.println("client ip: " + socket.getLocalAddress() + " port: " + socket.getLocalPort());
             System.out.println("server ip: " + socket.getInetAddress() + " port: " + socket.getPort());
 
+            // 客户端处理
             ClientHandler clientHandler = new ClientHandler(socket);
             clientHandler.start();
         } catch (IOException e) {
@@ -42,6 +47,9 @@ public class client {
         System.out.println("client is close");
     }
 
+    /**
+     * 客户端处理类
+     */
     private static class ClientHandler {
         private Socket socket;
         private boolean finish = false;
