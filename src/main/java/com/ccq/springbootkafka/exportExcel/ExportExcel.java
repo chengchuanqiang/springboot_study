@@ -29,10 +29,11 @@ public class ExportExcel {
     private static void export() throws IOException {
         long start = System.currentTimeMillis();
         SXSSFWorkbook workbook = new SXSSFWorkbook(2000);
+        workbook.setCompressTempFiles(true);
         Sheet sheet = workbook.createSheet("工作表");
         for (int rowNum = 0; rowNum < 100000; rowNum++) {
             Row row = sheet.createRow(rowNum);
-            for (int cellNum = 0; cellNum < 20; cellNum++) {
+            for (int cellNum = 0; cellNum < 200; cellNum++) {
                 Cell cell = row.createCell(cellNum);
                 cell.setCellValue(rowNum + ":" + cellNum);
             }
