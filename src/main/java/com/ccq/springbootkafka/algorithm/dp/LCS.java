@@ -8,8 +8,11 @@ package com.ccq.springbootkafka.algorithm.dp;
 public class LCS {
 
     public static void main(String[] args) {
-        String x = "ABCBDAB";
-        String y = "BDCABA";
+//        String x = "ABCBDAB";
+//        String y = "BDCABA";
+
+        String x = "1234";
+        String y = "123564";
 
         System.out.println(LcsDfs(x, y, 0, 0));
         System.out.println(LcsStr(x, y, 0, 0));
