@@ -12,6 +12,9 @@ public class LCS {
         String y = "BDCABA";
 
         System.out.println(LcsDfs(x, y, 0, 0));
+        System.out.println(LcsStr(x, y, 0, 0));
+
+
         int[][] dp = new int[x.length() + 1][y.length() + 1];
         for (int i = 0; i <= x.length(); i++) {
             for (int j = 0; j < y.length(); j++) {
@@ -23,6 +26,15 @@ public class LCS {
         System.out.println(Lcs(x, y));
     }
 
+    /**
+     * 递归实现 自顶向下
+     *
+     * @param x 字符串x
+     * @param y 字符串y
+     * @param i x的index
+     * @param j y的index
+     * @return result
+     */
     private static int LcsDfs(String x, String y, int i, int j) {
 
         if (i == x.length() || j == y.length()) {
@@ -35,6 +47,18 @@ public class LCS {
             return Math.max(LcsDfs(x, y, i + 1, j), LcsDfs(x, y, i, j + 1));
         }
 
+    }
+
+    private static String LcsStr(String x, String y, int i, int j) {
+        if (i == x.length() || j == y.length()) {
+            return "";
+        }
+
+        if (x.charAt(i) == y.charAt(j)) {
+            return LcsStr(x, y, i + 1, j + 1) + x.charAt(i);
+        } else {
+            return LcsStr(x, y, i + 1, j).length() > LcsStr(x, y, i, j + 1).length() ? LcsStr(x, y, i + 1, j) : LcsStr(x, y, i, j + 1);
+        }
     }
 
     private static int LcsDfs(String x, String y, int i, int j, int[][] dp) {
