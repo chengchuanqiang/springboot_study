@@ -107,10 +107,13 @@ public class LCS {
                     dp[i][j] = dp[i][j - 1];
                     // 左边
                     mark[i][j] = 2;
-                } else {
+                } else if (dp[i][j - 1] < dp[i - 1][j]) {
                     dp[i][j] = dp[i - 1][j];
                     // 上边
                     mark[i][j] = 3;
+                } else {
+                    dp[i][j] = dp[i - 1][j];
+                    mark[i][j] = 4;
                 }
             }
         }
@@ -135,9 +138,15 @@ public class LCS {
         } else if (mark[i][j] == 2) {
             // 左边
             printPath(i, j - 1, x, y, mark, path);
-        } else {
+        } else if (mark[i][j] == 3) {
             // 上边
             printPath(i - 1, j, x, y, mark, path);
+        } else {
+            System.out.print("(");
+            printPath(i, j - 1, x, y, mark, path);
+            System.out.print("+");
+            printPath(i - 1, j, x, y, mark, path);
+            System.out.print(")");
         }
     }
 
