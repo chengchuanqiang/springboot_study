@@ -1,5 +1,8 @@
 package com.ccq.springbootkafka.algorithm.dp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Description: 最长公共子序列
  * @Author: ChengChuanQiang
@@ -85,6 +88,8 @@ public class LCS {
 
     private static int Lcs(String x, String y) {
         int[][] dp = new int[x.length() + 1][y.length() + 1];
+        int[][] mark = new int[x.length() + 1][y.length() + 1];
+
         for (int i = 0; i <= x.length(); i++) {
             dp[i][0] = 0;
         }
@@ -96,12 +101,44 @@ public class LCS {
             for (int j = 1; j <= y.length(); j++) {
                 if (x.charAt(i - 1) == y.charAt(j - 1)) {
                     dp[i][j] = dp[i - 1][j - 1] + 1;
+                    // 对角线
+                    mark[i][j] = 1;
+                } else if (dp[i][j - 1] > dp[i - 1][j]) {
+                    dp[i][j] = dp[i][j - 1];
+                    // 左边
+                    mark[i][j] = 2;
                 } else {
-                    dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
+                    dp[i][j] = dp[i - 1][j];
+                    // 上边
+                    mark[i][j] = 3;
                 }
             }
         }
+        List<Character> path = new ArrayList<>();
+        printPath(x.length(), y.length(), x, y, mark, path);
+        for (Character c : path) {
+            System.out.print(c + " -> ");
+        }
+        System.out.println();
+
         return dp[x.length()][y.length()];
+    }
+
+    private static void printPath(int i, int j, String x, String y, int[][] mark, List<Character> path) {
+        if (i == 0 || j == 0) {
+            return;
+        }
+
+        if (mark[i][j] == 1) {
+            printPath(i - 1, j - 1, x, y, mark, path);
+            path.add(x.charAt(i - 1));
+        } else if (mark[i][j] == 2) {
+            // 左边
+            printPath(i, j - 1, x, y, mark, path);
+        } else {
+            // 上边
+            printPath(i - 1, j, x, y, mark, path);
+        }
     }
 
 }
