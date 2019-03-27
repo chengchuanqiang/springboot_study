@@ -11,11 +11,11 @@ import java.util.List;
 public class LCS {
 
     public static void main(String[] args) {
-//        String x = "ABCBDAB";
-//        String y = "BDCABA";
+        String x = "ABCBDAB";
+        String y = "BDCABA";
 
-        String x = "1234";
-        String y = "123564";
+//        String x = "1234";
+//        String y = "123564";
 
         System.out.println(LcsDfs(x, y, 0, 0));
         System.out.println(LcsStr(x, y, 0, 0));
@@ -120,7 +120,7 @@ public class LCS {
         List<Character> path = new ArrayList<>();
         printPath(x.length(), y.length(), x, y, mark, path);
         for (Character c : path) {
-            System.out.print(c + " -> ");
+            System.out.print(c);
         }
         System.out.println();
 
@@ -142,11 +142,11 @@ public class LCS {
             // 上边
             printPath(i - 1, j, x, y, mark, path);
         } else {
-            System.out.print("(");
+            path.add('(');
             printPath(i, j - 1, x, y, mark, path);
-            System.out.print("+");
+            path.add('+');
             printPath(i - 1, j, x, y, mark, path);
-            System.out.print(")");
+            path.add(')');
         }
     }
 
