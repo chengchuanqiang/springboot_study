@@ -1,6 +1,7 @@
 package com.ccq.springbootkafka.algorithm.shortPath;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * @Description: 单源最短路，没有负权路径
@@ -48,27 +49,24 @@ public class Dijkstra {
         return d[n - 1];
     }
 
-
     public static void main(String[] args) {
-        int[][] map = new int[5][5];
+        Scanner input = new Scanner(System.in);
+        int n = input.nextInt();
+        int m = input.nextInt();
+        int[][] map = new int[n][n];
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 map[i][j] = 9999;
             }
         }
-        map[0][1] = 5;
-        map[0][2] = 8;
-        map[1][2] = 1;
-        map[1][3] = 3;
-        map[1][4] = 2;
-        map[3][4] = 7;
 
-        map[1][0] = 5;
-        map[2][0] = 8;
-        map[2][1] = 1;
-        map[3][1] = 3;
-        map[4][1] = 2;
-        map[4][3] = 7;
+        while ((m--) > 0) {
+            int s = input.nextInt();
+            int e = input.nextInt();
+            int v = input.nextInt();
+            map[s][e] = v;
+            map[e][s] = v;
+        }
 
         dij(map);
     }
