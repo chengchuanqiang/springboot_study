@@ -3,13 +3,13 @@ package com.ccq.springbootkafka.algorithm.dp.knapsack;
 import java.util.Scanner;
 
 /********************************
- *** 01 背包问题
- *** dp[i][j] 使用前 i 个物品，装入体积为 j 背包中，最大的价值
+ *** 完全背包
+ *** dp[i][j] 前i个物品，可以无限的重复装，装入体积为j 背包，最大的价值
  ***@Author chengchuanqiang
- ***@Date 2019/4/23 18:28
+ ***@Date 2019/4/24 10:17
  ***@Version 1.0.0
  ********************************/
-public class ZeroOne {
+public class Complete {
     /**
      * N个物品
      */
@@ -39,23 +39,18 @@ public class ZeroOne {
         }
         input.close();
 
-        System.out.println(zeroOne1());
-        System.out.println(zeroOne2());
+        System.out.println(complete1());
+        System.out.println(complete2());
+
     }
 
-    /**
-     * 使用二维数组
-     *
-     * @return 背包最大价值
-     */
-    private static int zeroOne1() {
+    private static int complete1() {
         int[][] dp = new int[N + 1][V + 1];
         for (int i = 1; i <= N; i++) {
             for (int j = 1; j <= V; j++) {
-                if (j < v[i]) {
-                    dp[i][j] = dp[i - 1][j];
-                } else {
-                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - v[i]] + w[i]);
+                int num = j / v[i];
+                for (int k = 0; k <= num; k++) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i - 1][j - k * v[i]] + k * w[i]);
                 }
             }
         }
@@ -66,15 +61,10 @@ public class ZeroOne {
         return res;
     }
 
-    /**
-     * 一维数组
-     *
-     * @return 背包最大价值
-     */
-    private static int zeroOne2() {
+    private static int complete2() {
         int[] dp = new int[V + 1];
         for (int i = 1; i <= N; i++) {
-            for (int j = V; j >= v[i]; j--) {
+            for (int j = v[i]; j <= V; j++) {
                 dp[j] = Math.max(dp[j], dp[j - v[i]] + w[i]);
             }
         }
