@@ -14,7 +14,7 @@ public class LeetCode198 {
     public static void main(String[] args) {
         LeetCode198 test = new LeetCode198();
         int[] nums = {1, 20, 3};
-        System.out.println(test.rob(nums));
+        System.out.println(test.rob3(nums));
     }
 
     public int rob1(int[] nums) {
@@ -75,6 +75,23 @@ public class LeetCode198 {
             }
         }
         return dp[nums.length - 1];
+    }
+
+    public int rob3(int[] nums) {
+        m = new int[nums.length];
+        Arrays.fill(m, -1);
+        return dfs3(nums.length - 1, nums);
+    }
+    int[] m;
+    private int dfs3(int i, int[] nums) {
+        if (i < 0) {
+            return 0;
+        }
+        if (m[i] != -1) {
+            return m[i];
+        }
+        m[i] = Math.max(dfs3(i - 1, nums), dfs3(i - 2, nums) + nums[i]);
+        return m[i];
     }
 
 }
