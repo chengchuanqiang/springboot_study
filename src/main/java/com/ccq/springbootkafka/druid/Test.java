@@ -21,7 +21,10 @@ public class Test {
 
     public static void main(String[] args) {
 
-        String sqlStr = "CREATE TABLE IF NOT EXISTS `your_table_name` (\n`Id_P` INT COMMENT '',\n`LastName` STRING COMMENT '',\n`FirstName` STRING COMMENT '',\n`Address` STRING COMMENT '',\n`City` STRING COMMENT '')\nCOMMENT '*' \nPARTITIONED BY (ds STRING)\nSTORED AS ORC;select 1,id,name,age from `user`;update `user` set `name`='11' where `id`=2; insert into table user select * from test;";
+        String sqlStr = "CREATE TABLE IF NOT EXISTS `your_table_name吧v` (\n`Id_P存储` INT COMMENT '',\n`LastName` STRING COMMENT '',\n`FirstName` STRING COMMENT '',\n`Address` STRING COMMENT '',\n`City` STRING COMMENT '')\nCOMMENT '*' \nPARTITIONED BY (ds STRING)\nSTORED AS ORC的;select 1,id,name,age from `user`;update `user` set `name`='11' where `id`=2; insert into table user select * from test;";
+
+//        String sqlStr = "CREATE TABLE `gaigai_hive_11`(`updatetime` date COMMENT '',`id` int COMMENT '',`_crudoperation` string COMMENT '',`datalog` string COMMENT '',`msg` string COMMENT '') COMMENT '*' PARTITIONED BY (`starttime` string)  STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat' LOCATION 'hdfs://tdp01:8020/warehouse/tablespace/managed/hive/gaigai_hive_11' TBLPROPERTIES ('bucketing_version'='2','transactional'='true','transactional_properties'='default', 'transient_lastDdlTime'='1556595482')\n";
+
 
         try {
 //            SQLStatementParser parser = SQLParserUtils.createSQLStatementParser(sqlStr, JdbcConstants.HIVE);
@@ -50,6 +53,9 @@ public class Test {
 
                     SQLName storedAs = tableStatement.getStoredAs();
                     System.out.println("******storedAs: " + storedAs.getSimpleName());
+
+                    String name = tableStatement.getTableSource().getName().getSimpleName();
+                    System.out.println(name);
                 }
 
                 // hive的select语句
