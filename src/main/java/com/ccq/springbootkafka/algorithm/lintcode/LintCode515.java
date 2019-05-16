@@ -1,7 +1,5 @@
 package com.ccq.springbootkafka.algorithm.lintcode;
 
-import com.ccq.springbootkafka.algorithm.dp.Main;
-
 /********************************
  *** https://www.lintcode.com/problem/paint-house/description
  ***@Author chengchuanqiang
