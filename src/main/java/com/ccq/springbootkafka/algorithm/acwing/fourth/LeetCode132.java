@@ -9,12 +9,12 @@ public class LeetCode132 {
 
     public static void main(String[] args) {
         LeetCode132 test = new LeetCode132();
-        System.out.println(test.minCut("aa"));
+        System.out.println(test.minCut("aaaa"));
     }
 
     /**
      * dp[i]  前i个字符可以分割回文串的个数
-     * dp[i] = min(dp[j] + 1 && s[j,i] is Palindrome)
+     * dp[i] = min(dp[j] + 1 && s[j] ... s[i] is Palindrome)
      *
      * @param s s
      * @return result
@@ -52,7 +52,7 @@ public class LeetCode132 {
             dp[i] = i;
             for (int j = 0; j < i; j++) {
                 if (isPalindrome[j][i - 1]) {
-                    dp[i] = Math.min(dp[i], dp[i - j] + 1);
+                    dp[i] = Math.min(dp[i], dp[j] + 1);
                 }
             }
         }
