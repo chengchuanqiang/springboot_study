@@ -13,11 +13,11 @@ public class LeetCode279 {
     }
 
     /**
-     * dp[i] 以i为结尾平方数的个数
-     * dp[i] = min{dp[i-j*j] + 1}  j [0, i]
+     * dp[i] 表示 i 最少被分成几个完全平方数之和
+     * dp[i] = min{dp[i-j*j] + 1}  j*j = [0, i]
      *
-     * @param n
-     * @return
+     * @param n n
+     * @return result
      */
     public int numSquares(int n) {
         int[] dp = new int[n + 1];
