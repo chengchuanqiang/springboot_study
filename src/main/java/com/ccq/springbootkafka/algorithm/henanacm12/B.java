@@ -21,10 +21,10 @@ public class B {
         String t = input.next();
         int[][] f = new int[s.length() + 1][t.length() + 1];
         for (int i = 1; i <= s.length(); i++) {
-            f[i][0] = -c * i;
+            f[i][0] = -d * i;
         }
         for (int j = 1; j <= t.length(); j++) {
-            f[0][j] = -d * j;
+            f[0][j] = -c * j;
         }
 
         for (int i = 1; i <= s.length(); i++) {
