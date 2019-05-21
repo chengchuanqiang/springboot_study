@@ -11,6 +11,13 @@ import java.util.List;
  ********************************/
 public class Test {
 
+    /**
+     * 测试结果
+     * SkipList: 0.029 s
+     * LinkedList: 6.099 s
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         int n = 100000;
         SkipList<String> skipList = new SkipList<>();
