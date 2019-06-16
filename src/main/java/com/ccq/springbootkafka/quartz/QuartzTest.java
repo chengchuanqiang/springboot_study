@@ -44,7 +44,7 @@ public class QuartzTest {
                     .build();
 
             scheduler.scheduleJob(jobDetail, cronTrigger);
-            scheduler.start();
+//            scheduler.start();
         } catch (SchedulerException e) {
             e.printStackTrace();
         }

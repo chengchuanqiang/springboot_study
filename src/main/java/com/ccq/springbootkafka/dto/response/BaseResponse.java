@@ -22,12 +22,12 @@ public class BaseResponse<T> {
         this.data = data;
     }
 
-    public static<T> BaseResponse successInstance(T data) {
+    public static <T> BaseResponse<T> successInstance(T data) {
         return new BaseResponse<>(ResponseInfoType.SUCCESS.getMsg(), ResponseInfoType.SUCCESS.getCode(), data);
     }
 
-    public static<T> BaseResponse failInstance(int code, String msg) {
-        return new BaseResponse<>(msg, code,null);
+    public static <T> BaseResponse<T> failInstance(int code, String msg) {
+        return new BaseResponse<>(msg, code, null);
     }
 
 }
