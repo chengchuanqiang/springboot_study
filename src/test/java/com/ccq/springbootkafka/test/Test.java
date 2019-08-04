@@ -73,5 +73,7 @@ public class Test {
 
         System.out.println(s1 == s2);     // true
         System.out.println(s1 == s3);     // false
+
+        testInteger();
     }
 }

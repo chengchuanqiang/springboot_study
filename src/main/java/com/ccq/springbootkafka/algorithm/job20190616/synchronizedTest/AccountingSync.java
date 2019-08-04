@@ -13,17 +13,6 @@ public class AccountingSync implements Runnable {
      */
     static int num = 0;
 
-    @Override
-    public void run() {
-        for (int j = 0; j < 1000000; j++) {
-            increase();
-        }
-    }
-
-    private synchronized void increase() {
-        num++;
-    }
-
     public static void main(String[] args) throws InterruptedException {
         AccountingSync accountingSync = new AccountingSync();
         Thread t1 = new Thread(accountingSync);
@@ -36,5 +25,22 @@ public class AccountingSync implements Runnable {
         t2.join();
 
         System.out.println(num);
+    }
+
+    @Override
+    public void run() {
+        for (int j = 0; j < 1000000; j++) {
+            increase();
+        }
+    }
+
+    private void add() {
+        synchronized (AccountingSync.class) {
+            System.out.println(1 + 1);
+        }
+    }
+
+    private synchronized void increase() {
+        num++;
     }
 }
